@@ -31,7 +31,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if( v == mGetWeatherButton ){
+            String location = mLocationEditText.getText().toString();
             Intent intent = new Intent (MainActivity.this, ResultsActivity.class);
+            intent.putExtra("location", location);
             startActivity(intent);
 
         }
