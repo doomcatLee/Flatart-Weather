@@ -29,7 +29,6 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile 'com.squareup.okhttp3:okhttp:3.2.0'
-    compile 'com.squareup.okhttp3:okhttp:3.2.0'
     compile 'se.akerfeldt:okhttp-signpost:1.1.0'
     compile 'com.android.support:appcompat-v7:25.1.1'
     compile 'com.jakewharton:butterknife:7.0.1'
