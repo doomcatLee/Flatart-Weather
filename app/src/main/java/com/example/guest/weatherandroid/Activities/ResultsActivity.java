@@ -7,6 +7,7 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.guest.weatherandroid.Model.Weather;
 import com.example.guest.weatherandroid.R;
 import com.example.guest.weatherandroid.Services.WeatherService;
 
@@ -48,13 +49,12 @@ public class ResultsActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                try {
-                    String jsonData = response.body().string();
-                    Log.v(TAG, jsonData);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            public void onResponse(Call call, Response response)  {
+
+
+                    Weather weather = weatherService.processResults(response);
+                    Log.v("get City test", weather.getCity());
+
             }
 
         });
