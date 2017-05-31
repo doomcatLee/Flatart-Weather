@@ -1,4 +1,5 @@
 package com.example.guest.weatherandroid.Services;
+import java.text.DateFormat;
 
 import android.util.Log;
 
@@ -47,30 +48,47 @@ public class WeatherService {
 
     }
 
-    public Weather processResults(Response response) {
+    public ArrayList<Weather> processResults(Response response) {
+        ArrayList<Weather> weatherForecastList = new ArrayList<>();
         try {
             if (response.isSuccessful()) {
                 String jsonData = response.body().string();
-                JSONObject weatherJSON = new JSONObject(jsonData);
 
-                JSONArray weatherArray = weatherJSON.getJSONArray("weather");
+                JSONObject forecastJSON = new JSONObject((jsonData));
+                JSONArray listJSON = forecastJSON.getJSONArray("list");
+                // get city
+                JSONObject city = forecastJSON.getJSONObject("city");
+                String cityName = city.getString("name");
 
-                JSONObject obj1 = weatherArray.getJSONObject(0);
-                JSONObject obj2 = weatherJSON.getJSONObject("main");
+                for (int i =0; i < 7; i++){
+                    JSONObject day = listJSON.getJSONObject(i);
+                    int time = day.getInt("dt");
+                    System.out.println(time);
+                    //access temperatures here
+                    JSONObject temp = day.getJSONObject("temp");
+                    double maxTemp = temp.getDouble("max");
+                    double minTemp = temp.getDouble("min");
+                    double currentTemp = temp.getDouble("day");
 
-                String city = weatherJSON.getString("name");
-                String desc = obj1.getString("description");
-                String iconID = obj1.getString("icon");
-                double temp = obj2.getDouble("temp");
+                    //access weather List here
+                    JSONArray weatherList = day.getJSONArray("weather");
+                    JSONObject weatherDescriptions = weatherList.getJSONObject(0);
+                    String iconID = weatherDescriptions.getString("icon");
+                    String description = weatherDescriptions.getString("description");
+// access wind here
+                    double windSpeed = day.getDouble("speed");
 
-                weather = new Weather(city, temp,  iconID, desc);
+                    Weather newForecast = new Weather (cityName, currentTemp, iconID, description, time, maxTemp, minTemp, windSpeed);
+
+                    weatherForecastList.add(newForecast);
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return weather;
+        return weatherForecastList;
     }
 
 }
