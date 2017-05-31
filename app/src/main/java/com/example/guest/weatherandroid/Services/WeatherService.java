@@ -78,7 +78,6 @@ public class WeatherService {
 // access wind here
                     double windSpeed = day.getDouble("speed");
 
-
                     Weather newForecast = new Weather (cityName, currentTemp, iconID, description, time, maxTemp, minTemp, windSpeed);
 
                     weatherForecastList.add(newForecast);

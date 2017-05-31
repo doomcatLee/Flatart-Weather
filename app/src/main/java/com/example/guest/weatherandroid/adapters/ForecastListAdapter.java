@@ -9,13 +9,17 @@ import android.widget.TextView;
 
 import com.example.guest.weatherandroid.Model.Weather;
 import com.example.guest.weatherandroid.R;
+import com.example.guest.weatherandroid.Services.AppService;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class ForecastListAdapter extends RecyclerView.Adapter<ForecastListAdapter.ForecastViewHolder> {
+    AppService service = new AppService();
+
     private ArrayList<Weather> mWeatherList = new ArrayList<>();
     private Context mContext;
 
@@ -33,12 +37,13 @@ public class ForecastListAdapter extends RecyclerView.Adapter<ForecastListAdapte
 
     @Override
     public void onBindViewHolder(ForecastListAdapter.ForecastViewHolder holder, int position) {
-        holder.bindWeather(mWeatherList.get(position));
+
+        holder.bindWeather(mWeatherList.get(position+1));
     }
 
     @Override
     public int getItemCount() {
-        return mWeatherList.size();
+        return (mWeatherList.size() - 1);
     }
 
 
@@ -57,6 +62,7 @@ public class ForecastListAdapter extends RecyclerView.Adapter<ForecastListAdapte
 
         public void bindWeather(Weather weather) {
             mDay.setText((weather.getTime()));
+            mTemp.setText(service.formatTemp(weather.getTemp()));
         }
     }
 }

@@ -8,11 +8,13 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.guest.weatherandroid.R;
+import com.example.guest.weatherandroid.Services.AppService;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+
     @Bind(R.id.locationEditText)
     EditText mLocationEditText;
     @Bind(R.id.getWeatherButton)

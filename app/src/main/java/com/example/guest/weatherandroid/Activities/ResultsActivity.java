@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.guest.weatherandroid.Model.Weather;
 import com.example.guest.weatherandroid.R;
+import com.example.guest.weatherandroid.Services.AppService;
 import com.example.guest.weatherandroid.Services.WeatherService;
 import com.example.guest.weatherandroid.adapters.ForecastListAdapter;
 
@@ -27,6 +28,7 @@ public class ResultsActivity extends AppCompatActivity {
 
     ArrayList<Weather> mWeather = new ArrayList<>();
     public static final String TAG = ResultsActivity.class.getSimpleName();
+    AppService service = new AppService();
 
     @Bind(R.id.recyclerView)
     RecyclerView mRecyclerView;
@@ -65,20 +67,21 @@ public class ResultsActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         String city = mWeather.get(0).getCity();
+                        String currentDesc = mWeather.get(0).getDesc();
 
                         for (int i=0; i < mWeather.size();i++){
                             double temp = mWeather.get(i).getTemp();
                             String iconID = mWeather.get(i).getIconID();
                             String desc = mWeather.get(i).getDesc();
                         }
-
+                        mTempTextView.setText(service.formatTemp(mWeather.get(0).getTemp()));
                         mAdapter = new ForecastListAdapter(getApplicationContext(), mWeather);
                         mRecyclerView.setAdapter(mAdapter);
                         RecyclerView.LayoutManager layoutManager =
                                 new LinearLayoutManager(ResultsActivity.this);
                         mRecyclerView.setLayoutManager(layoutManager);
                         mRecyclerView.setHasFixedSize(true);
-                        mDescTextView.setText("Current weather is " + "shitty" + " in " + city);
+                        mDescTextView.setText("Current weather is " + currentDesc + " in " + city);
 
                     }
 

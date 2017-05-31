@@ -1,6 +1,8 @@
 package com.example.guest.weatherandroid;
 
 
+import com.example.guest.weatherandroid.Services.AppService;
+
 import org.junit.Test;
 
 import java.text.SimpleDateFormat;
@@ -28,10 +30,13 @@ public class ExampleUnitTest {
 
         SimpleDateFormat format = new SimpleDateFormat("E", Locale.US);
         String text = format.format(date);
-
-
         assertEquals("Thu",text);
+    }
 
-
+    @Test
+    public void testAppService(){
+        AppService ser = new AppService();
+        String num = ser.formatTemp(12.31233);
+        assertEquals("12",num);
     }
 }
