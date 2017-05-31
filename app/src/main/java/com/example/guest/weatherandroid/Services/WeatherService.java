@@ -34,6 +34,7 @@ public class WeatherService {
         urlBuilder.addQueryParameter(Constants.API_KEY_QUERY_PARAMETER, Constants.API_KEY);
         urlBuilder.addQueryParameter(Constants.YOUR_QUERY_PARAMETER, location);
 
+
         String url = urlBuilder.build().toString();
         Log.d("test", url);
 
@@ -47,14 +48,22 @@ public class WeatherService {
     }
 
     public Weather processResults(Response response) {
-//        Weather weather = new Weather("", 2.31, "", "");
-
         try {
             if (response.isSuccessful()) {
                 String jsonData = response.body().string();
                 JSONObject weatherJSON = new JSONObject(jsonData);
+
+                JSONArray weatherArray = weatherJSON.getJSONArray("weather");
+
+                JSONObject obj1 = weatherArray.getJSONObject(0);
+                JSONObject obj2 = weatherJSON.getJSONObject("main");
+
                 String city = weatherJSON.getString("name");
-                weather = new Weather(city, 2.231, "test", "test");
+                String desc = obj1.getString("description");
+                String iconID = obj1.getString("icon");
+                double temp = obj2.getDouble("temp");
+
+                weather = new Weather(city, temp,  iconID, desc);
             }
         } catch (IOException e) {
             e.printStackTrace();

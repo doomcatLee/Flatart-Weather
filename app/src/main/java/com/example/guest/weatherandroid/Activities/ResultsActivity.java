@@ -3,7 +3,6 @@ package com.example.guest.weatherandroid.Activities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,13 +19,17 @@ import okhttp3.Callback;
 import okhttp3.Response;
 
 public class ResultsActivity extends AppCompatActivity {
+
+    Weather weather;
     public static final String TAG = ResultsActivity.class.getSimpleName();
 
     @Bind(R.id.weatherImageView)
     ImageView mWeatherImageView;
+
     @Bind(R.id.tempTextView)
     TextView mTempTextView;
-    @Bind(R.id.cityTextView) TextView mCityTextView;
+
+    @Bind(R.id.descTextView) TextView mDescTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +39,6 @@ public class ResultsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String location = intent.getStringExtra("location");
         getWeather(location);
-        mTempTextView.setText(location);
     }
 
     private void getWeather(String location){
@@ -50,10 +52,19 @@ public class ResultsActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(Call call, Response response)  {
+                weather = weatherService.processResults(response);
+                ResultsActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        String city = weather.getCity();
+                        double temp = weather.getTemp();
+                        String iconID = weather.getIconID();
+                        String desc = weather.getDesc();
+                        mTempTextView.setText(Double.toString(temp) + "°F");
+                        mDescTextView.setText("Current weather is " + desc + " in " + city);
+                    }
 
-
-                    Weather weather = weatherService.processResults(response);
-                    Log.v("get City test", weather.getCity());
+                });
 
             }
 

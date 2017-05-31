@@ -19,8 +19,8 @@ public class Weather {
         return mCity;
     }
 
-    public double getKelvin() {
-        return mKelvin;
+    public double getTemp() {
+        return ((mKelvin * 1.8) - 459.67);
     }
 
     public String getIconID() {
