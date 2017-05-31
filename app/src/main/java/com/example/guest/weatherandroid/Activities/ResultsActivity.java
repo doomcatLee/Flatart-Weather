@@ -15,7 +15,6 @@ import com.example.guest.weatherandroid.Services.WeatherService;
 import com.example.guest.weatherandroid.adapters.ForecastListAdapter;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import butterknife.Bind;
@@ -30,6 +29,8 @@ public class ResultsActivity extends AppCompatActivity {
     public static final String TAG = ResultsActivity.class.getSimpleName();
     AppService service = new AppService();
 
+    @Bind(R.id.weatherImageView) ImageView mWeatherImage;
+
     @Bind(R.id.recyclerView)
     RecyclerView mRecyclerView;
 
@@ -38,7 +39,7 @@ public class ResultsActivity extends AppCompatActivity {
     @Bind(R.id.tempTextView)
     TextView mTempTextView;
 
-    @Bind(R.id.descTextView) TextView mDescTextView;
+    @Bind(R.id.cityTextView) TextView mCityTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +69,7 @@ public class ResultsActivity extends AppCompatActivity {
                     public void run() {
                         String city = mWeather.get(0).getCity();
                         String currentDesc = mWeather.get(0).getDesc();
+                        String currentIconID = mWeather.get(0).getIconID();
 
                         for (int i=0; i < mWeather.size();i++){
                             double temp = mWeather.get(i).getTemp();
@@ -81,7 +83,9 @@ public class ResultsActivity extends AppCompatActivity {
                                 new LinearLayoutManager(ResultsActivity.this);
                         mRecyclerView.setLayoutManager(layoutManager);
                         mRecyclerView.setHasFixedSize(true);
-                        mDescTextView.setText("Current weather is " + currentDesc + " in " + city);
+                        mCityTextView.setText(city);
+
+                        service.setImageDynamic(mWeatherImage,currentIconID);
 
                     }
 
