@@ -3,10 +3,13 @@ package com.example.guest.weatherandroid.Services;
 
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.res.ResourcesCompat;
+import android.support.v7.widget.CardView;
+import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
 
 import com.example.guest.weatherandroid.Model.Weather;
 import com.example.guest.weatherandroid.R;
+import com.example.guest.weatherandroid.adapters.ForecastListAdapter;
 
 import java.text.DecimalFormat;
 
@@ -28,8 +31,6 @@ public class AppService {
 
     public void setImageDynamic(ImageView view, String iconID){
 
-
-
         if (iconID.equals("01d") || iconID.equals("01n")){
             view.setImageResource(R.drawable.sunny);
         }else if(iconID.equals("10d") || iconID.equals("10n") || iconID.equals("09n") || iconID.equals("09d")){
@@ -50,5 +51,4 @@ public class AppService {
 
 
     }
-
 }
