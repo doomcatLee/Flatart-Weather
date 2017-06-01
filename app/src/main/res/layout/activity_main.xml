@@ -9,9 +9,8 @@
 
     <EditText
         android:id="@+id/locationEditText"
-        style="@style/Widget.AppCompat.EditText"
-        android:layout_width="245dp"
-        android:layout_height="62dp"
+        android:layout_width="251dp"
+        android:layout_height="49dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginLeft="8dp"
@@ -22,13 +21,12 @@
         android:hint="Location"
         android:inputType="textPersonName"
         android:textColorHint="@color/colorPrimaryDark"
-        android:textSize="36sp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.539"
+        app:layout_constraintHorizontal_bias="0.541"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.498"
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintRight_creator="1"
         tools:layout_constraintTop_creator="1" />
@@ -52,7 +50,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/locationEditText"
-        app:layout_constraintVertical_bias="0.666"
+        app:layout_constraintVertical_bias="0.742"
         tools:textAllCaps="false" />
 
 </android.support.constraint.ConstraintLayout>

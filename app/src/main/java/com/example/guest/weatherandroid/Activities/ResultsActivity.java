@@ -1,6 +1,7 @@
 package com.example.guest.weatherandroid.Activities;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -41,6 +42,8 @@ public class ResultsActivity extends AppCompatActivity {
 
     @Bind(R.id.cityTextView) TextView mCityTextView;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +56,8 @@ public class ResultsActivity extends AppCompatActivity {
 
     private void getWeather(String location){
 
+
+
         final WeatherService weatherService = new WeatherService();
         weatherService.getWeather(location, new Callback() {
 
@@ -63,19 +68,20 @@ public class ResultsActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(Call call, Response response)  {
+
                 mWeather = weatherService.processResults(response);
                 ResultsActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        String city = mWeather.get(0).getCity();
+
+                        Typeface robotoFont = Typeface.createFromAsset(getAssets(),"fonts/Roboto_Thin.ttf");
+                        TextView[] viewList = {mTempTextView, mCityTextView};
+                        service.setFonts(viewList, robotoFont);
+
                         String currentDesc = mWeather.get(0).getDesc();
                         String currentIconID = mWeather.get(0).getIconID();
+                        String city = mWeather.get(0).getCity();
 
-                        for (int i=0; i < mWeather.size();i++){
-                            double temp = mWeather.get(i).getTemp();
-                            String iconID = mWeather.get(i).getIconID();
-                            String desc = mWeather.get(i).getDesc();
-                        }
                         mTempTextView.setText(service.formatTemp(mWeather.get(0).getTemp()));
                         mAdapter = new ForecastListAdapter(getApplicationContext(), mWeather);
                         mRecyclerView.setAdapter(mAdapter);
