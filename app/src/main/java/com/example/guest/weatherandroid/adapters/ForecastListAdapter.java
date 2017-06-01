@@ -2,6 +2,7 @@ package com.example.guest.weatherandroid.adapters;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -87,6 +88,8 @@ public class ForecastListAdapter extends RecyclerView.Adapter<ForecastListAdapte
         private CardView mCardView;
 
 
+
+
         public ForecastViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
@@ -96,6 +99,7 @@ public class ForecastListAdapter extends RecyclerView.Adapter<ForecastListAdapte
         }
 
         public void bindWeather(Weather weather) {
+
             mDay.setText((weather.getTime()));
             mTemp.setText(service.formatTemp(weather.getTemp()));
         }

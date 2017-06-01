@@ -1,11 +1,13 @@
 package com.example.guest.weatherandroid.Services;
 
 
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.guest.weatherandroid.Model.Weather;
 import com.example.guest.weatherandroid.R;
@@ -50,5 +52,11 @@ public class AppService {
         }
 
 
+    }
+
+    public void setFonts(TextView[] views, Typeface font){
+        for (TextView i: views){
+            i.setTypeface(font);
+        }
     }
 }
