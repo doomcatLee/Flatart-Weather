@@ -9,7 +9,7 @@
     <ImageView
         android:id="@+id/weatherImageView"
         android:layout_width="0dp"
-        android:layout_height="200dp"
+        android:layout_height="150dp"
         android:adjustViewBounds="false"
         android:scaleType="centerCrop"
         android:src="@drawable/trees"
@@ -20,14 +20,14 @@
         app:layout_constraintTop_toTopOf="parent"
 
         app:layout_constraintVertical_bias="0.0"
-        tools:layout_constraintRight_creator="1"
-        tools:layout_constraintLeft_creator="1" />
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1" />
 
     <TextView
         android:id="@+id/cityTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="51dp"
         android:layout_marginEnd="41dp"
         android:layout_marginLeft="41dp"
         android:layout_marginRight="41dp"
@@ -40,7 +40,8 @@
         app:layout_constraintRight_toRightOf="parent"
         tools:layout_constraintBottom_creator="1"
         tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintRight_creator="1" />
+        tools:layout_constraintRight_creator="1"
+        app:layout_constraintHorizontal_bias="0.0" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
@@ -67,11 +68,14 @@
         android:layout_marginBottom="0dp"
         android:layout_marginTop="12dp"
         android:textAlignment="center"
-        android:textSize="72sp"
+        android:textColor="@android:color/holo_red_light"
+        android:textSize="80sp"
         app:layout_constraintBottom_toTopOf="@+id/cityTextView"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/weatherImageView"
+        app:layout_constraintVertical_bias="1.0"
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintRight_creator="1"
         tools:layout_constraintTop_creator="1" />
