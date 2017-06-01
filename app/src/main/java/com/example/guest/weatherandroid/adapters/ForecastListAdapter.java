@@ -61,8 +61,8 @@ public class ForecastListAdapter extends RecyclerView.Adapter<ForecastListAdapte
             Drawable d = holder.mCardView.getResources().getDrawable(R.drawable.snow);
             holder.mCardView.setBackground(d);
         }else if (iconID.equals("11d") || iconID.equals("11n")){
-            Drawable d = holder.mCardView.getResources().getDrawable(R.drawable.heavy_rain);
-            holder.mCardView.setBackground(d);
+//            Drawable d = holder.mCardView.getResources().getDrawable(R.drawable.heavy_rain);
+//            holder.mCardView.setBackground(d);
         }else if (iconID.equals("50d") || iconID.equals("50n")){
             Drawable d = holder.mCardView.getResources().getDrawable(R.drawable.mist);
             holder.mCardView.setBackground(d);
