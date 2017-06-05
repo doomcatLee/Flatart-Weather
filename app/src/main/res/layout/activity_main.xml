@@ -9,14 +9,12 @@
 
     <EditText
         android:id="@+id/locationEditText"
-        android:layout_width="251dp"
+        android:layout_width="0dp"
         android:layout_height="49dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginEnd="66dp"
+        android:layout_marginLeft="66dp"
+        android:layout_marginRight="66dp"
+        android:layout_marginStart="66dp"
         android:ems="10"
         android:hint="Location"
         android:inputType="textPersonName"
@@ -29,17 +27,18 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintRight_creator="1"
-        tools:layout_constraintTop_creator="1" />
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintBottom_creator="1" />
 
     <Button
         android:id="@+id/getWeatherButton"
-        android:layout_width="249dp"
+        android:layout_width="0dp"
         android:layout_height="52dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginEnd="67dp"
+        android:layout_marginLeft="67dp"
+        android:layout_marginRight="67dp"
+        android:layout_marginStart="67dp"
         android:layout_marginTop="8dp"
         android:background="@android:color/holo_green_dark"
         android:text="Get Weather"
@@ -51,6 +50,32 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/locationEditText"
         app:layout_constraintVertical_bias="0.742"
-        tools:textAllCaps="false" />
+        tools:textAllCaps="false"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintLeft_creator="1" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="78dp"
+        android:layout_height="16dp"
+        android:text="Powered by"
+        android:layout_marginStart="39dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/openWeather"
+        tools:layout_constraintBaseline_creator="1"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <TextView
+        android:id="@+id/openWeather"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="OpenWeatherMap"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold"
+        tools:layout_constraintTop_creator="1"
+        android:layout_marginTop="29dp"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/textView" />
 
 </android.support.constraint.ConstraintLayout>

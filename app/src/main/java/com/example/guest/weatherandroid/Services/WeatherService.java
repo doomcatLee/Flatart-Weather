@@ -59,6 +59,7 @@ public class WeatherService {
                 // get city
                 JSONObject city = forecastJSON.getJSONObject("city");
                 String cityName = city.getString("name");
+                Log.d("cityName", cityName);
 
                 for (int i =0; i < 7; i++){
                     JSONObject day = listJSON.getJSONObject(i);
@@ -75,10 +76,11 @@ public class WeatherService {
                     JSONObject weatherDescriptions = weatherList.getJSONObject(0);
                     String iconID = weatherDescriptions.getString("icon");
                     String description = weatherDescriptions.getString("description");
-// access wind here
+                    // access wind here
                     double windSpeed = day.getDouble("speed");
 
                     Weather newForecast = new Weather (cityName, currentTemp, iconID, description, time, maxTemp, minTemp, windSpeed);
+                    System.out.println(newForecast);
 
                     weatherForecastList.add(newForecast);
                 }
