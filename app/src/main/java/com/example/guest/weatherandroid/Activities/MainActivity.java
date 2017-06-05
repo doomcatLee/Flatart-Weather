@@ -9,8 +9,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.guest.weatherandroid.Constants;
 import com.example.guest.weatherandroid.R;
 import com.example.guest.weatherandroid.Services.AppService;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -24,6 +27,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Bind(R.id.openWeather)
     TextView mOpenWeather;
 
+
+    private DatabaseReference mSearchedLocationReference;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +38,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ButterKnife.bind(this);
         mGetWeatherButton.setOnClickListener(this);
         mOpenWeather.setOnClickListener(this);
+
+        mSearchedLocationReference = FirebaseDatabase
+                .getInstance()
+                .getReference()
+                .child(Constants.FIREBASE_CHILD_SEARCHED_LOCATION);
 
     }
 
@@ -41,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String location = mLocationEditText.getText().toString();
             Intent intent = new Intent (MainActivity.this, ResultsActivity.class);
             intent.putExtra("location", location);
+            saveLocationToFirebase(location);
             startActivity(intent);
 
         }
@@ -51,5 +64,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Intent webIntent = new Intent(Intent.ACTION_VIEW, webpage);
             startActivity(webIntent);
         }
+    }
+
+    public void saveLocationToFirebase(String location) {
+        mSearchedLocationReference.setValue(location);
     }
 }
