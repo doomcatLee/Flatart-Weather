@@ -43,9 +43,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .getInstance()
                 .getReference()
                 .child(Constants.FIREBASE_CHILD_SEARCHED_LOCATION);
-
     }
-
 
     @Override
     public void onClick(View v) {
@@ -67,6 +65,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void saveLocationToFirebase(String location) {
-        mSearchedLocationReference.setValue(location);
+        mSearchedLocationReference.push().setValue(location);
     }
 }
