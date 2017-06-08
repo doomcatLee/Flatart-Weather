@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.example.guest.weatherandroid.Constants;
 import com.example.guest.weatherandroid.R;
 import com.example.guest.weatherandroid.Services.AppService;
+import com.example.guest.weatherandroid.Services.FirebaseService;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,9 +32,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Bind(R.id.openWeather)
     TextView mOpenWeather;
 
-
-    private ValueEventListener mSearchedLocationReferenceListener;
-    private DatabaseReference mSearchedLocationReference;
+    FirebaseService fbService = new FirebaseService();
+    ValueEventListener mSearchedLocationReferenceListener;
+    DatabaseReference mSearchedLocationReference;
 
 
     @Override
@@ -43,29 +44,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ButterKnife.bind(this);
         mGetWeatherButton.setOnClickListener(this);
         mOpenWeather.setOnClickListener(this);
+        fbService.initiateService();
+        mSearchedLocationReferenceListener = fbService.getLocationReferenceListener();
+        mSearchedLocationReference = fbService.getLocationReference();
 
-        mSearchedLocationReference = FirebaseDatabase
-                .getInstance()
-                .getReference()
-                .child(Constants.FIREBASE_CHILD_SEARCHED_LOCATION);
-
-        //Adding FIREBASE LISTENER HERE
-        mSearchedLocationReference.addValueEventListener(new ValueEventListener() {
-
-            //THIS BASICALLY RETREIVES DATA FROM FIREBASE
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot locationSnapshot : dataSnapshot.getChildren()) {
-                    String location = locationSnapshot.getValue().toString();
-                    Log.d("Locations updated", "location: " + location); //log
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
     }
 
     //When the app is off
@@ -81,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String location = mLocationEditText.getText().toString();
             Intent intent = new Intent (MainActivity.this, ResultsActivity.class);
             intent.putExtra("location", location);
-            saveLocationToFirebase(location);
+            fbService.saveLocationToFirebase(location,mSearchedLocationReference);
             startActivity(intent);
 
         }
@@ -94,7 +76,4 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    public void saveLocationToFirebase(String location) {
-        mSearchedLocationReference.push().setValue(location);
-    }
 }
