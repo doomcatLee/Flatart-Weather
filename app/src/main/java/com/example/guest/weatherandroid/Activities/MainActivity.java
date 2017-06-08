@@ -1,9 +1,12 @@
 package com.example.guest.weatherandroid.Activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,19 +33,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private DatabaseReference mSearchedLocationReference;
 
+    //SHARED PREFERENCES
+    private SharedPreferences mSharedPreferences;
+    private SharedPreferences.Editor mEditor;
+    private String mRecentAddress;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        mRecentAddress = mSharedPreferences.getString(Constants.PREFERENCES_LOCATION_KEY, null);
+        mEditor = mSharedPreferences.edit();
+
         mGetWeatherButton.setOnClickListener(this);
         mOpenWeather.setOnClickListener(this);
 
-        mSearchedLocationReference = FirebaseDatabase
-                .getInstance()
-                .getReference()
-                .child(Constants.FIREBASE_CHILD_SEARCHED_LOCATION);
+//        mSearchedLocationReference = FirebaseDatabase
+//                .getInstance()
+//                .getReference()
+//                .child(Constants.FIREBASE_CHILD_SEARCHED_LOCATION);
 
     }
 
@@ -53,7 +66,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String location = mLocationEditText.getText().toString();
             Intent intent = new Intent (MainActivity.this, ResultsActivity.class);
             intent.putExtra("location", location);
-            saveLocationToFirebase(location);
+            addToSharedPreferences(location);
+            //TESTING
+            Log.d("Shared Pref Location", mRecentAddress);
+//            saveLocationToFirebase(location);
             startActivity(intent);
 
         }
@@ -69,4 +85,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void saveLocationToFirebase(String location) {
         mSearchedLocationReference.setValue(location);
     }
+
+    //SHARED PREFERECNES METHOD
+    private void addToSharedPreferences(String location) {
+        mEditor.putString(Constants.PREFERENCES_LOCATION_KEY, location).apply();
+    }
+
 }
