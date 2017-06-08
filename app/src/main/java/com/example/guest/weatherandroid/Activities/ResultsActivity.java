@@ -32,13 +32,13 @@ import okhttp3.Response;
 
 public class ResultsActivity extends AppCompatActivity {
 
-    AppService appService = new AppService();
     private ForecastListAdapter mAdapter;
 
-    //SERVICES
     ArrayList<Weather> mWeather = new ArrayList<>();
-    WeatherService weatherService = new WeatherService();
+
+    //SERVICES
     FirebaseService firebaseService = new FirebaseService();
+    AppService appService = new AppService();
 
     DatabaseReference mFirebaseReference;
 
@@ -68,9 +68,9 @@ public class ResultsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String location = intent.getStringExtra("location");
 
-        if (item.getItemId() == R.id.saveButton){
-            weatherService.getWeather(location, new Callback() {
 
+        if (item.getItemId() == R.id.saveButton){
+            appService.getWeather(location, new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
                     e.printStackTrace();
@@ -78,43 +78,10 @@ public class ResultsActivity extends AppCompatActivity {
 
                 @Override
                 public void onResponse(Call call, Response response)  {
-
-                    mWeather = weatherService.processResults(response);
-                    ResultsActivity.this.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-
-                            Typeface robotoFont = Typeface.createFromAsset(getAssets(),"fonts/Roboto_Thin.ttf");
-                            TextView[] viewList = {mTempTextView, mCityTextView};
-                            appService.setFonts(viewList, robotoFont);
-
-                            String currentDesc = mWeather.get(0).getDesc();
-                            String currentIconID = mWeather.get(0).getIconID();
-                            String city = mWeather.get(0).getCity();
-
-                            mTempTextView.setText(appService.formatTemp(mWeather.get(0).getTemp()));
-                            mAdapter = new ForecastListAdapter(getApplicationContext(), mWeather);
-                            mRecyclerView.setAdapter(mAdapter);
-                            RecyclerView.LayoutManager layoutManager =
-                                    new LinearLayoutManager(ResultsActivity.this);
-                            mRecyclerView.setLayoutManager(layoutManager);
-                            mRecyclerView.setHasFixedSize(true);
-                            mCityTextView.setText(city);
-
-                            appService.setImageDynamic(mWeatherImage,currentIconID);
-                            firebaseService.saveLocationToFirebase(city);
-                            Log.d("It DID", "WORK");
-                            Log.d("variables", String.format("%s,%s",city,currentDesc));
-
-                        }
-
-                    });
-
+                    mWeather = appService.processResults(response);
+                    firebaseService.saveObjectToFirebase(mWeather);
                 }
-
             });
-        }else{
-            Log.d("didnt", "WORK");
         }
         return true;
     }
@@ -130,7 +97,7 @@ public class ResultsActivity extends AppCompatActivity {
         firebaseService.initiateService();
         mFirebaseReference = firebaseService.getLocationReference();
 
-        weatherService.getWeather(location, new Callback() {
+        appService.getWeather(location, new Callback() {
 
             @Override
             public void onFailure(Call call, IOException e) {
@@ -140,7 +107,7 @@ public class ResultsActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response)  {
 
-                mWeather = weatherService.processResults(response);
+                mWeather = appService.processResults(response);
                 ResultsActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {

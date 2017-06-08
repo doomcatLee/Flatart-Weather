@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //Firebase
         fbService.initiateService();
-        mSearchedLocationReferenceListener = fbService.getLocationReferenceListener();
+        mSearchedLocationReferenceListener = fbService.getReferenceListener();
         mSearchedLocationReference = fbService.getLocationReference();
 
     }

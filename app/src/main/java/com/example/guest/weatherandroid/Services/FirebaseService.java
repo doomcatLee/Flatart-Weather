@@ -11,8 +11,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class FirebaseService {
-    private ValueEventListener mSearchedLocationReferenceListener;
+    private ValueEventListener mReferenceListener;
     private DatabaseReference mSearchedLocationReference;
+    private DatabaseReference mUserReference;
 
     public FirebaseService(){
 
@@ -22,8 +23,12 @@ public class FirebaseService {
         return mSearchedLocationReference;
     }
 
-    public ValueEventListener getLocationReferenceListener(){
-        return mSearchedLocationReferenceListener;
+    public DatabaseReference getmUserReference(){
+        return mUserReference;
+    }
+
+    public ValueEventListener getReferenceListener(){
+        return mReferenceListener;
     }
 
     public void initiateService(){
@@ -31,6 +36,11 @@ public class FirebaseService {
                 .getInstance()
                 .getReference()
                 .child(Constants.FIREBASE_CHILD_SEARCHED_LOCATION);
+
+        mUserReference = FirebaseDatabase
+                .getInstance()
+                .getReference()
+                .child(Constants.FIREBASE_CHILD_USER);
 
         //Adding FIREBASE LISTENER HERE
         mSearchedLocationReference.addValueEventListener(new ValueEventListener() {
@@ -55,5 +65,9 @@ public class FirebaseService {
 
     public void saveLocationToFirebase(String location) {
         mSearchedLocationReference.push().setValue(location);
+    }
+
+    public void saveObjectToFirebase(Object o){
+        mUserReference.push().setValue(o);
     }
 }

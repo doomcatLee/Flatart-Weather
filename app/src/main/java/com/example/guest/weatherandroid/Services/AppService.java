@@ -18,7 +18,7 @@ import java.text.DecimalFormat;
 
 
 
-public class AppService {
+public class AppService extends WeatherService{
 
     public AppService(){
 
