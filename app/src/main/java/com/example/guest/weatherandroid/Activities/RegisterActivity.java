@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.guest.weatherandroid.R;
+import com.example.guest.weatherandroid.Services.AppService;
 import com.example.guest.weatherandroid.Services.FirebaseService;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -24,7 +26,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     @Bind(R.id.createUserButton)
     Button mRegisterButton;
 
+
     private FirebaseAuth mAuth;
+    AppService appService = new AppService();
     FirebaseService firebaseService = new FirebaseService();
 
     @Override
@@ -39,7 +43,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick(View v) {
         if (v == mRegisterButton){
-            firebaseService.createNewUser(mName, mEmail, mPassword, mPasswordConfirm,mAuth, this);
+            if(appService.isValidForm(mPassword, mPasswordConfirm, mEmail, this)){
+                firebaseService.createNewUser(mName, mEmail, mPassword, mPasswordConfirm,mAuth, this);
+            }else{
+                System.out.print("ignore");
+            }
+
         }
     }
 }

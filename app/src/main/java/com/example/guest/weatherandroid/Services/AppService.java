@@ -1,13 +1,16 @@
 package com.example.guest.weatherandroid.Services;
 
 
+import android.app.Activity;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.guest.weatherandroid.Model.Weather;
 import com.example.guest.weatherandroid.R;
@@ -15,22 +18,49 @@ import com.example.guest.weatherandroid.adapters.ForecastListAdapter;
 
 import java.text.DecimalFormat;
 
-
-
-
 public class AppService extends WeatherService{
 
     public AppService(){
 
     }
 
+    /**
+     * Validates user input form
+     * Args: (EditText) password, (EditText) passwordConfirm, (EditText) email and Activity
+     * Returns: (Boolean) true or false
+     */
+    public Boolean isValidForm(EditText password, EditText passwordConfirm, EditText email, Activity activity){
+        if (password.length() > 5 && passwordConfirm.length() > 5){
+            if (password.getText().toString().equals(passwordConfirm.getText().toString())){
+                if (email.getText().toString().contains("@")){
+                    return true;
+                }
+                Toast.makeText(activity, "Email must contain @", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+            Toast.makeText(activity, "Both passwords must match", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        Toast.makeText(activity, "Password must be longer than " + password.length() + " digits", Toast.LENGTH_SHORT).show();
+        return false;
+    }
+
+    /**
+     * Formats temperature from Kelvin to Fahrenheit with concatenated string
+     * Args: (double) Kelvin
+     * Returns: (String) Fahrenheit
+     */
     public String formatTemp(double num){
         DecimalFormat df = new DecimalFormat("#");
         String str = df.format(num) + " °F";
         return str;
     }
 
-
+    /**
+     * Based on the iconID retrieved, change view to its background
+     * Args: ImageView and (String) iconID
+     * Returns: nothing
+     */
     public void setImageDynamic(ImageView view, String iconID){
 
         if (iconID.equals("01d") || iconID.equals("01n")){
@@ -50,10 +80,13 @@ public class AppService extends WeatherService{
         }else{
             System.out.println("uhhhhhhhhhhhhhhhh");
         }
-
-
     }
 
+    /**
+     * Set Typeface for all TextView in TextView ArrayList
+     * Args: (TextView[]) ArrayList of TextViews
+     * Returns: nothing
+     */
     public void setFonts(TextView[] views, Typeface font){
         for (TextView i: views){
             i.setTypeface(font);
