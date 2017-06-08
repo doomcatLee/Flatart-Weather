@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //SHARED PREFERENCES
     private SharedPreferences mSharedPreferences;
     private SharedPreferences.Editor mEditor;
-    private String mRecentAddress;
 
 
     @Override
@@ -46,7 +45,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ButterKnife.bind(this);
 
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        mRecentAddress = mSharedPreferences.getString(Constants.PREFERENCES_LOCATION_KEY, null);
         mEditor = mSharedPreferences.edit();
 
         mGetWeatherButton.setOnClickListener(this);
@@ -66,9 +64,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String location = mLocationEditText.getText().toString();
             Intent intent = new Intent (MainActivity.this, ResultsActivity.class);
             intent.putExtra("location", location);
-            addToSharedPreferences(location);
-            //TESTING
-            Log.d("Shared Pref Location", mRecentAddress);
+            if(!(location).equals("")) {
+                addToSharedPreferences(location);
+            }
 //            saveLocationToFirebase(location);
             startActivity(intent);
 

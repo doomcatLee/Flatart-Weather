@@ -1,14 +1,18 @@
 package com.example.guest.weatherandroid.Activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.guest.weatherandroid.Constants;
 import com.example.guest.weatherandroid.Model.Weather;
 import com.example.guest.weatherandroid.R;
 import com.example.guest.weatherandroid.Services.AppService;
@@ -32,15 +36,17 @@ public class ResultsActivity extends AppCompatActivity {
 
     @Bind(R.id.weatherImageView) ImageView mWeatherImage;
 
-    @Bind(R.id.recyclerView)
-    RecyclerView mRecyclerView;
-
-    private ForecastListAdapter mAdapter;
-
     @Bind(R.id.tempTextView)
     TextView mTempTextView;
 
     @Bind(R.id.cityTextView) TextView mCityTextView;
+
+    @Bind(R.id.recyclerView)
+    RecyclerView mRecyclerView;
+
+    private SharedPreferences mSharedPreferences;
+    private ForecastListAdapter mAdapter;
+    private String mLocation;
 
 
 
@@ -51,7 +57,15 @@ public class ResultsActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         Intent intent = getIntent();
         String location = intent.getStringExtra("location");
-        getWeather(location);
+
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        mLocation = mSharedPreferences.getString(Constants.PREFERENCES_LOCATION_KEY, null);
+        //TESTING
+        Log.d("Shared Pref Location", mLocation);
+        if (mLocation != null) {
+            getWeather(mLocation);
+        }
+
     }
 
     private void getWeather(String location){
