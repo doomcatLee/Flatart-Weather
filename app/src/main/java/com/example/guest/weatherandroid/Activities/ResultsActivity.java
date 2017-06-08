@@ -6,6 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -43,6 +47,25 @@ public class ResultsActivity extends AppCompatActivity {
     @Bind(R.id.cityTextView) TextView mCityTextView;
 
 
+    //Override so we add the button
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.actionbutton, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        if (item.getItemId() == R.id.saveButton){
+
+        }else{
+
+        }
+        return true;
+    }
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,12 +75,14 @@ public class ResultsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String location = intent.getStringExtra("location");
         getWeather(location);
+
     }
 
+
+
+
+
     private void getWeather(String location){
-
-
-
         final WeatherService weatherService = new WeatherService();
         weatherService.getWeather(location, new Callback() {
 
