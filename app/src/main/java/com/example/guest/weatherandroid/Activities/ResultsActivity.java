@@ -30,21 +30,24 @@ import okhttp3.Response;
 
 public class ResultsActivity extends AppCompatActivity {
 
-    ArrayList<Weather> mWeather = new ArrayList<>();
-    public static final String TAG = ResultsActivity.class.getSimpleName();
-    AppService service = new AppService();
+    AppService appService = new AppService();
+    private ForecastListAdapter mAdapter;
 
-    @Bind(R.id.weatherImageView) ImageView mWeatherImage;
+    //SERVICES
+    ArrayList<Weather> mWeather = new ArrayList<>();
+    WeatherService weatherService = new WeatherService();
+
+    @Bind(R.id.weatherImageView)
+    ImageView mWeatherImage;
 
     @Bind(R.id.recyclerView)
     RecyclerView mRecyclerView;
 
-    private ForecastListAdapter mAdapter;
-
     @Bind(R.id.tempTextView)
     TextView mTempTextView;
 
-    @Bind(R.id.cityTextView) TextView mCityTextView;
+    @Bind(R.id.cityTextView)
+    TextView mCityTextView;
 
 
     //Override so we add the button
@@ -65,8 +68,6 @@ public class ResultsActivity extends AppCompatActivity {
         return true;
     }
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,16 +75,6 @@ public class ResultsActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         Intent intent = getIntent();
         String location = intent.getStringExtra("location");
-        getWeather(location);
-
-    }
-
-
-
-
-
-    private void getWeather(String location){
-        final WeatherService weatherService = new WeatherService();
         weatherService.getWeather(location, new Callback() {
 
             @Override
@@ -101,13 +92,13 @@ public class ResultsActivity extends AppCompatActivity {
 
                         Typeface robotoFont = Typeface.createFromAsset(getAssets(),"fonts/Roboto_Thin.ttf");
                         TextView[] viewList = {mTempTextView, mCityTextView};
-                        service.setFonts(viewList, robotoFont);
+                        appService.setFonts(viewList, robotoFont);
 
                         String currentDesc = mWeather.get(0).getDesc();
                         String currentIconID = mWeather.get(0).getIconID();
                         String city = mWeather.get(0).getCity();
 
-                        mTempTextView.setText(service.formatTemp(mWeather.get(0).getTemp()));
+                        mTempTextView.setText(appService.formatTemp(mWeather.get(0).getTemp()));
                         mAdapter = new ForecastListAdapter(getApplicationContext(), mWeather);
                         mRecyclerView.setAdapter(mAdapter);
                         RecyclerView.LayoutManager layoutManager =
@@ -116,7 +107,7 @@ public class ResultsActivity extends AppCompatActivity {
                         mRecyclerView.setHasFixedSize(true);
                         mCityTextView.setText(city);
 
-                        service.setImageDynamic(mWeatherImage,currentIconID);
+                        appService.setImageDynamic(mWeatherImage,currentIconID);
 
                     }
 
@@ -125,5 +116,7 @@ public class ResultsActivity extends AppCompatActivity {
             }
 
         });
+
     }
+
 }
