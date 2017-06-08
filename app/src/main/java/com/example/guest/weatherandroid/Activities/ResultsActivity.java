@@ -16,8 +16,10 @@ import android.widget.TextView;
 import com.example.guest.weatherandroid.Model.Weather;
 import com.example.guest.weatherandroid.R;
 import com.example.guest.weatherandroid.Services.AppService;
+import com.example.guest.weatherandroid.Services.FirebaseService;
 import com.example.guest.weatherandroid.Services.WeatherService;
 import com.example.guest.weatherandroid.adapters.ForecastListAdapter;
+import com.google.firebase.database.DatabaseReference;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -30,21 +32,27 @@ import okhttp3.Response;
 
 public class ResultsActivity extends AppCompatActivity {
 
-    ArrayList<Weather> mWeather = new ArrayList<>();
-    public static final String TAG = ResultsActivity.class.getSimpleName();
-    AppService service = new AppService();
+    private ForecastListAdapter mAdapter;
 
-    @Bind(R.id.weatherImageView) ImageView mWeatherImage;
+    ArrayList<Weather> mWeather = new ArrayList<>();
+
+    //SERVICES
+    FirebaseService firebaseService = new FirebaseService();
+    AppService appService = new AppService();
+
+    DatabaseReference mFirebaseReference;
+
+    @Bind(R.id.weatherImageView)
+    ImageView mWeatherImage;
 
     @Bind(R.id.recyclerView)
     RecyclerView mRecyclerView;
 
-    private ForecastListAdapter mAdapter;
-
     @Bind(R.id.tempTextView)
     TextView mTempTextView;
 
-    @Bind(R.id.cityTextView) TextView mCityTextView;
+    @Bind(R.id.cityTextView)
+    TextView mCityTextView;
 
 
     //Override so we add the button
@@ -57,15 +65,26 @@ public class ResultsActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
+        Intent intent = getIntent();
+        String location = intent.getStringExtra("location");
+
+
         if (item.getItemId() == R.id.saveButton){
+            appService.getWeather(location, new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    e.printStackTrace();
+                }
 
-        }else{
-
+                @Override
+                public void onResponse(Call call, Response response)  {
+                    mWeather = appService.processResults(response);
+                    firebaseService.saveObjectToFirebase(mWeather);
+                }
+            });
         }
         return true;
     }
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,17 +93,11 @@ public class ResultsActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         Intent intent = getIntent();
         String location = intent.getStringExtra("location");
-        getWeather(location);
 
-    }
+        firebaseService.initiateService();
+        mFirebaseReference = firebaseService.getLocationReference();
 
-
-
-
-
-    private void getWeather(String location){
-        final WeatherService weatherService = new WeatherService();
-        weatherService.getWeather(location, new Callback() {
+        appService.getWeather(location, new Callback() {
 
             @Override
             public void onFailure(Call call, IOException e) {
@@ -94,20 +107,20 @@ public class ResultsActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response)  {
 
-                mWeather = weatherService.processResults(response);
+                mWeather = appService.processResults(response);
                 ResultsActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
 
                         Typeface robotoFont = Typeface.createFromAsset(getAssets(),"fonts/Roboto_Thin.ttf");
                         TextView[] viewList = {mTempTextView, mCityTextView};
-                        service.setFonts(viewList, robotoFont);
+                        appService.setFonts(viewList, robotoFont);
 
                         String currentDesc = mWeather.get(0).getDesc();
                         String currentIconID = mWeather.get(0).getIconID();
                         String city = mWeather.get(0).getCity();
 
-                        mTempTextView.setText(service.formatTemp(mWeather.get(0).getTemp()));
+                        mTempTextView.setText(appService.formatTemp(mWeather.get(0).getTemp()));
                         mAdapter = new ForecastListAdapter(getApplicationContext(), mWeather);
                         mRecyclerView.setAdapter(mAdapter);
                         RecyclerView.LayoutManager layoutManager =
@@ -116,7 +129,7 @@ public class ResultsActivity extends AppCompatActivity {
                         mRecyclerView.setHasFixedSize(true);
                         mCityTextView.setText(city);
 
-                        service.setImageDynamic(mWeatherImage,currentIconID);
+                        appService.setImageDynamic(mWeatherImage,currentIconID);
 
                     }
 
@@ -125,5 +138,7 @@ public class ResultsActivity extends AppCompatActivity {
             }
 
         });
+
     }
+
 }

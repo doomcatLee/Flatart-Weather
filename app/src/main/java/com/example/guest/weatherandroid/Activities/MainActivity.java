@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Bind(R.id.openWeather)
     TextView mOpenWeather;
 
+    //Initialize FirebaseService
     FirebaseService fbService = new FirebaseService();
     ValueEventListener mSearchedLocationReferenceListener;
     DatabaseReference mSearchedLocationReference;
@@ -44,8 +45,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ButterKnife.bind(this);
         mGetWeatherButton.setOnClickListener(this);
         mOpenWeather.setOnClickListener(this);
+
+        //Firebase
         fbService.initiateService();
-        mSearchedLocationReferenceListener = fbService.getLocationReferenceListener();
+        mSearchedLocationReferenceListener = fbService.getReferenceListener();
         mSearchedLocationReference = fbService.getLocationReference();
 
     }
@@ -63,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String location = mLocationEditText.getText().toString();
             Intent intent = new Intent (MainActivity.this, ResultsActivity.class);
             intent.putExtra("location", location);
-            fbService.saveLocationToFirebase(location,mSearchedLocationReference);
+            fbService.saveLocationToFirebase(location);
             startActivity(intent);
 
         }
