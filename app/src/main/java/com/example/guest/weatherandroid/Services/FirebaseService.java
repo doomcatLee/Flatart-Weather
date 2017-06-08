@@ -14,7 +14,6 @@ public class FirebaseService {
     private ValueEventListener mSearchedLocationReferenceListener;
     private DatabaseReference mSearchedLocationReference;
 
-
     public FirebaseService(){
 
     }
@@ -32,8 +31,6 @@ public class FirebaseService {
                 .getInstance()
                 .getReference()
                 .child(Constants.FIREBASE_CHILD_SEARCHED_LOCATION);
-
-
 
         //Adding FIREBASE LISTENER HERE
         mSearchedLocationReference.addValueEventListener(new ValueEventListener() {
