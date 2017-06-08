@@ -16,8 +16,10 @@ import android.widget.TextView;
 import com.example.guest.weatherandroid.Model.Weather;
 import com.example.guest.weatherandroid.R;
 import com.example.guest.weatherandroid.Services.AppService;
+import com.example.guest.weatherandroid.Services.FirebaseService;
 import com.example.guest.weatherandroid.Services.WeatherService;
 import com.example.guest.weatherandroid.adapters.ForecastListAdapter;
+import com.google.firebase.database.DatabaseReference;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -36,6 +38,9 @@ public class ResultsActivity extends AppCompatActivity {
     //SERVICES
     ArrayList<Weather> mWeather = new ArrayList<>();
     WeatherService weatherService = new WeatherService();
+    FirebaseService firebaseService = new FirebaseService();
+
+    DatabaseReference mFirebaseReference;
 
     @Bind(R.id.weatherImageView)
     ImageView mWeatherImage;
@@ -60,10 +65,56 @@ public class ResultsActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
+        Intent intent = getIntent();
+        String location = intent.getStringExtra("location");
+
         if (item.getItemId() == R.id.saveButton){
+            weatherService.getWeather(location, new Callback() {
 
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    e.printStackTrace();
+                }
+
+                @Override
+                public void onResponse(Call call, Response response)  {
+
+                    mWeather = weatherService.processResults(response);
+                    ResultsActivity.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            Typeface robotoFont = Typeface.createFromAsset(getAssets(),"fonts/Roboto_Thin.ttf");
+                            TextView[] viewList = {mTempTextView, mCityTextView};
+                            appService.setFonts(viewList, robotoFont);
+
+                            String currentDesc = mWeather.get(0).getDesc();
+                            String currentIconID = mWeather.get(0).getIconID();
+                            String city = mWeather.get(0).getCity();
+
+                            mTempTextView.setText(appService.formatTemp(mWeather.get(0).getTemp()));
+                            mAdapter = new ForecastListAdapter(getApplicationContext(), mWeather);
+                            mRecyclerView.setAdapter(mAdapter);
+                            RecyclerView.LayoutManager layoutManager =
+                                    new LinearLayoutManager(ResultsActivity.this);
+                            mRecyclerView.setLayoutManager(layoutManager);
+                            mRecyclerView.setHasFixedSize(true);
+                            mCityTextView.setText(city);
+
+                            appService.setImageDynamic(mWeatherImage,currentIconID);
+                            firebaseService.saveLocationToFirebase(city);
+                            Log.d("It DID", "WORK");
+                            Log.d("variables", String.format("%s,%s",city,currentDesc));
+
+                        }
+
+                    });
+
+                }
+
+            });
         }else{
-
+            Log.d("didnt", "WORK");
         }
         return true;
     }
@@ -75,6 +126,10 @@ public class ResultsActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         Intent intent = getIntent();
         String location = intent.getStringExtra("location");
+
+        firebaseService.initiateService();
+        mFirebaseReference = firebaseService.getLocationReference();
+
         weatherService.getWeather(location, new Callback() {
 
             @Override

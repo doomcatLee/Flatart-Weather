@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String location = mLocationEditText.getText().toString();
             Intent intent = new Intent (MainActivity.this, ResultsActivity.class);
             intent.putExtra("location", location);
-            fbService.saveLocationToFirebase(location,mSearchedLocationReference);
+            fbService.saveLocationToFirebase(location);
             startActivity(intent);
 
         }

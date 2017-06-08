@@ -53,7 +53,7 @@ public class FirebaseService {
 
 
 
-    public void saveLocationToFirebase(String location, DatabaseReference dr) {
-        dr.push().setValue(location);
+    public void saveLocationToFirebase(String location) {
+        mSearchedLocationReference.push().setValue(location);
     }
 }
