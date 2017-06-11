@@ -4,7 +4,7 @@
     <!-- "Mark Favorite", should appear as action button if possible -->
     <item
         android:id="@+id/saveButton"
-        android:icon="@drawable/circle"
+        android:icon="@drawable/menu_white"
         android:title=""
         app:showAsAction="ifRoom"/>
 
