@@ -13,27 +13,24 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".Activities.MainActivity"
-            android:theme="@style/NoAction">
-
-        </activity>
-        <activity android:name=".Activities.ResultsActivity" >
-        </activity>
-        <activity android:name=".Activities.RegisterActivity"
-            android:theme="@style/NoAction">
-
-
-
-        </activity>
-        <activity android:name=".Activities.IntroActivity"
+            android:theme="@style/NoAction" />
+        <activity android:name=".Activities.ResultsActivity" />
+        <activity
+            android:name=".Activities.RegisterActivity"
+            android:theme="@style/NoAction" />
+        <activity
+            android:name=".Activities.IntroActivity"
             android:theme="@style/NoAction">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
-
+        <activity android:name=".Activities.Register1Activity"
+            android:theme="@style/NoAction"/>
+        <activity android:name=".Activities.Register2Activity"
+            android:theme="@style/NoAction"></activity>
     </application>
 
 </manifest>
