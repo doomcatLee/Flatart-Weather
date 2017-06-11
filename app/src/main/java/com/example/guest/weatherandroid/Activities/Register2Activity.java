@@ -25,7 +25,7 @@ public class Register2Activity extends AppCompatActivity implements View.OnClick
     public void onClick(View v) {
         if (v == mNextButton){
             if (v == mNextButton){
-                Intent intent = new Intent(Register2Activity.this, ResultsActivity.class);
+                Intent intent = new Intent(Register2Activity.this, MainActivity.class);
                 startActivity(intent);
             }
         }
