@@ -8,6 +8,8 @@
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/flatart-weather.iml" filepath="$PROJECT_DIR$/flatart-weather.iml" />
       <module fileurl="file://$PROJECT_DIR$/weatherAndroid.iml" filepath="$PROJECT_DIR$/weatherAndroid.iml" />
       <module fileurl="file://$PROJECT_DIR$/weatherapp.iml" filepath="$PROJECT_DIR$/weatherapp.iml" />
     </modules>
