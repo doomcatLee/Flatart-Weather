@@ -4,20 +4,14 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.guest.weatherandroid.Constants;
 import com.example.guest.weatherandroid.R;
-import com.example.guest.weatherandroid.Services.AppService;
 import com.example.guest.weatherandroid.Services.FirebaseService;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import butterknife.Bind;
@@ -27,7 +21,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Bind(R.id.locationEditText)
     EditText mLocationEditText;
-    @Bind(R.id.getWeatherButton)
+    @Bind(R.id.getStartedButton)
     Button mGetWeatherButton;
     @Bind(R.id.openWeather)
     TextView mOpenWeather;

@@ -31,7 +31,7 @@
         tools:layout_constraintBottom_creator="1" />
 
     <Button
-        android:id="@+id/getWeatherButton"
+        android:id="@+id/getStartedButton"
         android:layout_width="0dp"
         android:layout_height="52dp"
         android:layout_marginBottom="8dp"
