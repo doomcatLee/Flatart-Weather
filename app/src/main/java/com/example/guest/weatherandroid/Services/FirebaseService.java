@@ -8,7 +8,6 @@ import android.util.Log;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.guest.weatherandroid.Activities.RegisterActivity;
 import com.example.guest.weatherandroid.Constants;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -31,11 +30,10 @@ public class FirebaseService {
 
     }
 
-    public void createNewUser(EditText a, EditText b, EditText c, EditText d, FirebaseAuth auth, Activity activity) {
-        final String name = a.getText().toString().trim();
-        final String email = b.getText().toString().trim();
-        String password = c.getText().toString().trim();
-        String confirmPassword = d.getText().toString().trim();
+    public void createNewUser(String b, String c, FirebaseAuth auth, Activity activity) {
+        final String email = b;
+        String password = c;
+
 
         auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
