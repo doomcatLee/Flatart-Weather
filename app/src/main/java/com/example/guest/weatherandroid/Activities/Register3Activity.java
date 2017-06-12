@@ -53,6 +53,8 @@ public class Register3Activity extends AppCompatActivity implements View.OnClick
     public void onClick(View v) {
         if (v == mSubmitButton){
                 firebaseService.createNewUser(mEmail, mPassword, mAuth, this);
+            Intent intent = new Intent(Register3Activity.this, MainActivity.class);
+            startActivity(intent);
         }
     }
 }
