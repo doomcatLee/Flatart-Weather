@@ -19,7 +19,7 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
-    @Bind(R.id.locationEditText)
+    @Bind(R.id.locationEditTextMain)
     EditText mLocationEditText;
     @Bind(R.id.getStartedButton)
     Button mGetWeatherButton;
@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        mSearchedLocationReference.removeEventListener(mSearchedLocationReferenceListener);
+        mSearchedLocationReference.removeEventListener(mSearchedLocationReferenceListener);
     }
 
     @Override

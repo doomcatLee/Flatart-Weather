@@ -107,7 +107,8 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
         ButterKnife.bind(this);
 
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        mLocation = mSharedPreferences.getString("location", null);
+        Intent intent = getIntent();
+        mLocation = intent.getStringExtra("location");
         mEmail = mSharedPreferences.getString("email", null);
 
 
