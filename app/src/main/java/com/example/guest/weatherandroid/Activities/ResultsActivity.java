@@ -2,6 +2,7 @@ package com.example.guest.weatherandroid.Activities;
 
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,9 +11,13 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.guest.weatherandroid.Constants;
+import com.example.guest.weatherandroid.Model.User;
 import com.example.guest.weatherandroid.Model.Weather;
 import com.example.guest.weatherandroid.R;
 import com.example.guest.weatherandroid.Services.AppService;
@@ -20,7 +25,9 @@ import com.example.guest.weatherandroid.Services.FirebaseService;
 import com.example.guest.weatherandroid.Services.WeatherService;
 import com.example.guest.weatherandroid.adapters.ForecastListAdapter;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -31,9 +38,11 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
-public class ResultsActivity extends AppCompatActivity {
+public class ResultsActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ForecastListAdapter mAdapter;
+    private User mUser;
+    private FloatingActionButton mSaveButton;
 
     ArrayList<Weather> mWeather = new ArrayList<>();
 
@@ -75,6 +84,7 @@ public class ResultsActivity extends AppCompatActivity {
             logout();
             return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
         private void logout() {
@@ -85,25 +95,6 @@ public class ResultsActivity extends AppCompatActivity {
             finish();
         }
 
-//          This is for saving data in firebase
-//        if (item.getItemId() == R.id.saveButton){
-//            appService.getWeather(location, new Callback() {
-//                @Override
-//                public void onFailure(Call call, IOException e) {
-//                    e.printStackTrace();
-//                }
-//
-//                @Override
-//                public void onResponse(Call call, Response response)  {
-//                    mWeather = appService.processResults(response);
-//                    firebaseService.saveObjectToFirebase(mWeather);
-//                }
-//            });
-//        }
-//        return true;
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,6 +102,10 @@ public class ResultsActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         Intent intent = getIntent();
         String location = intent.getStringExtra("location");
+        mSaveButton = (FloatingActionButton) findViewById(R.id.saveButton);
+        mSaveButton.setOnClickListener(this);
+
+
 
         firebaseService.initiateService();
         mFirebaseReference = firebaseService.getLocationReference();
@@ -157,6 +152,26 @@ public class ResultsActivity extends AppCompatActivity {
 
         });
 
+    }
+
+    @Override
+    public void onClick(View v){
+        if(v == mSaveButton){
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            String uid = user.getUid();
+            DatabaseReference userRef = FirebaseDatabase
+                    .getInstance()
+                    .getReference(Constants.FIREBASE_CHILD_USER)
+                    .child(uid);
+
+            DatabaseReference pushRef = userRef.push();
+            String pushId = pushRef.getKey();
+            mUser.setPushId(pushId);
+            pushRef.setValue(mUser);
+
+            Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
+
+        }
     }
 
 }

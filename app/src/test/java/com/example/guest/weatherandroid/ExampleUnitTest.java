@@ -1,6 +1,7 @@
 package com.example.guest.weatherandroid;
 
 
+import com.example.guest.weatherandroid.Model.User;
 import com.example.guest.weatherandroid.Services.AppService;
 
 import org.junit.Test;
@@ -38,5 +39,13 @@ public class ExampleUnitTest {
         AppService ser = new AppService();
         String num = ser.formatTemp(12.31233);
         assertEquals("12",num);
+    }
+
+    @Test
+    public void testHashMap(){
+        User user = new User("97086","doomcat917@gmail.com");
+        user.putMoodWeather("asd","asd");
+        user.getWeather("angry");
+        assertTrue(user.getWeather("angry").equals("rainy"));
     }
 }
