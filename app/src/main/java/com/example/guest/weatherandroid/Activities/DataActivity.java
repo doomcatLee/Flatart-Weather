@@ -69,6 +69,7 @@ public class DataActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data);
 
+
         mUserCity = (TextView) findViewById(R.id.cityTextView);
         mUserLocation = (TextView) findViewById(R.id.locationTextView);
         mUserEmail = (TextView) findViewById(R.id.emailTextView);

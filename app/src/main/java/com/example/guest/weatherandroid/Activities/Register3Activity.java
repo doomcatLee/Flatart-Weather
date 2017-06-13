@@ -1,5 +1,6 @@
 package com.example.guest.weatherandroid.Activities;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -22,6 +23,8 @@ public class Register3Activity extends AppCompatActivity implements View.OnClick
     private SharedPreferences mSharedPreferences;
     private SharedPreferences.Editor mEditor;
 
+    private ProgressDialog mAuthProgressDialog;
+
     private TextView mSubmitButton;
     private FirebaseAuth mAuth;
 
@@ -37,6 +40,8 @@ public class Register3Activity extends AppCompatActivity implements View.OnClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register3);
+
+        createAuthProgressDialog();
 
         mAuth = FirebaseAuth.getInstance();
         mSubmitButton = (TextView) findViewById(R.id.submitButton);
@@ -57,11 +62,21 @@ public class Register3Activity extends AppCompatActivity implements View.OnClick
 
     }
 
+    private void createAuthProgressDialog() {
+        mAuthProgressDialog = new ProgressDialog(this);
+        mAuthProgressDialog.setTitle("Loading...");
+        mAuthProgressDialog.setMessage("Authenticating with Firebase...");
+        mAuthProgressDialog.setCancelable(false);
+    }
+
+
     @Override
     public void onClick(View v) {
         if (v == mSubmitButton){
+            mAuthProgressDialog.show();
             firebaseService.createNewUser(mEmail, mPassword, mAuth, this);
             addToSharedPreferences(mLocation.getText().toString(),mEmail);
+
 
             Intent intent = new Intent(Register3Activity.this, ResultsActivity.class);
             startActivity(intent);
