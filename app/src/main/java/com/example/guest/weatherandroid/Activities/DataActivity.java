@@ -6,17 +6,29 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.example.guest.weatherandroid.R;
 
 public class DataActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
+    private TextView mUserEmail;
+    private TextView mUserZipcode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data);
+
+        mUserEmail = (TextView) findViewById(R.id.email);
+        mUserZipcode = (TextView) findViewById(R.id.zipcode);
+
+        Intent intent = getIntent();
+        String a = intent.getStringExtra("email");
+        String b = intent.getStringExtra("zipcode");
+        mUserEmail.setText(a);
+        mUserZipcode.setText(b);
 
         bottomNavigationView  = (BottomNavigationView)
                 findViewById(R.id.bottom_navigation);

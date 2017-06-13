@@ -45,11 +45,10 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
     private ForecastListAdapter mAdapter;
     private User mUser;
     private FloatingActionButton mSaveButton;
+    ArrayList<Weather> mWeather = new ArrayList<>();
+
 
     BottomNavigationView bottomNavigationView;
-
-
-    ArrayList<Weather> mWeather = new ArrayList<>();
 
     //SERVICES
     FirebaseService firebaseService = new FirebaseService();
@@ -107,8 +106,12 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
         ButterKnife.bind(this);
         Intent intent = getIntent();
         String location = intent.getStringExtra("location");
-//        mSaveButton = (FloatingActionButton) findViewById(R.id.saveButton);
-//        mSaveButton.setOnClickListener(this);
+        mSaveButton = (FloatingActionButton) findViewById(R.id.saveButton);
+        mSaveButton.setOnClickListener(this);
+
+        mUser = new User();
+        mUser.setmHomeZipcode(location);
+        mUser.setmEmail("doomcat@");
 
         bottomNavigationView  = (BottomNavigationView)
                 findViewById(R.id.bottom_navigation);
@@ -123,6 +126,8 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
 //                            startActivity(intent1);
                         }else if(item.getItemId() == R.id.action_data){
                             Intent intent2 = new Intent(ResultsActivity.this, DataActivity.class);
+                            intent2.putExtra("email", mUser.getmEmail());
+                            intent2.putExtra("zipcode", mUser.getmHomeZipcode());
                             startActivity(intent2);
                         }else if(item.getItemId() == R.id.action_search){
                             Intent intent3 = new Intent(ResultsActivity.this, MainActivity.class);
@@ -150,6 +155,9 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
             public void onResponse(Call call, Response response)  {
 
                 mWeather = appService.processResults(response);
+
+                //Set mWeather here when the api call is made
+                mUser.setmSavedWeather(mWeather);
                 ResultsActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -186,18 +194,10 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onClick(View v){
         if(v == mSaveButton){
-            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-            String uid = user.getUid();
-            DatabaseReference userRef = FirebaseDatabase
+            DatabaseReference databaseRef = FirebaseDatabase
                     .getInstance()
-                    .getReference(Constants.FIREBASE_CHILD_USER)
-                    .child(uid);
-
-            DatabaseReference pushRef = userRef.push();
-            String pushId = pushRef.getKey();
-            mUser.setPushId(pushId);
-            pushRef.setValue(mUser);
-
+                    .getReference(Constants.FIREBASE_CHILD_USER);
+            databaseRef.push().setValue(mUser);
             Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
 
         }
