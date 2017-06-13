@@ -29,6 +29,7 @@ public class Register1Activity extends AppCompatActivity implements View.OnClick
     @Override
     public void onClick(View v) {
         if (v == mNextButton){
+            System.out.println(mEmail);
             if(appService.isEmailValid(mEmail.getText().toString(), this)){
                 Intent intent = new Intent(Register1Activity.this, Register2Activity.class);
                 intent.putExtra("email",mEmail.getText().toString());

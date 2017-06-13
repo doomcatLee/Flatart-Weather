@@ -34,6 +34,7 @@ public class Register2Activity extends AppCompatActivity implements View.OnClick
     @Override
     public void onClick(View v) {
         if (v == mNextButton){
+            System.out.println(mEmail);
             if (appService.isPasswordValid(mPassword.getText().toString(), mPasswordConfirm.getText().toString(),this)){
                 Intent intent = new Intent(Register2Activity.this, Register3Activity.class);
                 intent.putExtra("password", mPassword.getText().toString());

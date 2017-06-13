@@ -35,6 +35,7 @@ public class DataActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     private TextView mUserCity;
     private TextView mUserLocation;
+    private TextView mUserEmail;
     private String mLocation;
     private User mUser;
     private ValueEventListener mUserReferenceListener;
@@ -55,7 +56,7 @@ public class DataActivity extends AppCompatActivity {
                     String email = (String) item.get("mEmail");
                     String zipcode = (String) item.get("mHomeZipcode");
                     mUserCity.setText(city);
-//                    mUserCity.setText(email);
+                    mUserEmail.setText(email);
                     mUserLocation.setText(zipcode);
                     System.out.println(city+email+zipcode);
                 }
@@ -70,6 +71,7 @@ public class DataActivity extends AppCompatActivity {
 
         mUserCity = (TextView) findViewById(R.id.cityTextView);
         mUserLocation = (TextView) findViewById(R.id.locationTextView);
+        mUserEmail = (TextView) findViewById(R.id.emailTextView);
 
         //Shared Preferences here
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);

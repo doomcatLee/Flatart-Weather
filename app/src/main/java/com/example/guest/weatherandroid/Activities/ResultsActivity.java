@@ -84,8 +84,6 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent = getIntent();
         String location = intent.getStringExtra("zipcode");
-
-
         int id = item.getItemId();
         if (id == R.id.action_logout) {
             logout();
@@ -120,7 +118,7 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
 
         mUser = new User();
         mUser.setmHomeZipcode(mLocation);
-//        mUser.setmEmail(mEmail);
+        mUser.setmEmail(mEmail);
 
         bottomNavigationView  = (BottomNavigationView)
                 findViewById(R.id.bottom_navigation);
