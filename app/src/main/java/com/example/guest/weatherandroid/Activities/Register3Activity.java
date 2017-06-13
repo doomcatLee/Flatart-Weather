@@ -76,8 +76,6 @@ public class Register3Activity extends AppCompatActivity implements View.OnClick
             mAuthProgressDialog.show();
             firebaseService.createNewUser(mEmail, mPassword, mAuth, this);
             addToSharedPreferences(mLocation.getText().toString(),mEmail);
-
-
             Intent intent = new Intent(Register3Activity.this, ResultsActivity.class);
             startActivity(intent);
         }

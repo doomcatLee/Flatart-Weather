@@ -106,13 +106,11 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
         setContentView(R.layout.activity_results);
         ButterKnife.bind(this);
 
+
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         mLocation = mSharedPreferences.getString("location", null);
         mEmail = mSharedPreferences.getString("email", null);
 
-
-
-        Log.d("location",mLocation);
         mSaveButton = (FloatingActionButton) findViewById(R.id.saveButton);
         mSaveButton.setOnClickListener(this);
 
@@ -145,7 +143,6 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
                         return true;
                     }
                 });
-
 
 
         firebaseService.initiateService();
