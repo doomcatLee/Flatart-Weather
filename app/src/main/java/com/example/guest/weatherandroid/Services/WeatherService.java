@@ -53,6 +53,7 @@ public class WeatherService {
         try {
             if (response.isSuccessful()) {
                 String jsonData = response.body().string();
+                System.out.println(jsonData);
 
                 JSONObject forecastJSON = new JSONObject((jsonData));
                 JSONArray listJSON = forecastJSON.getJSONArray("list");

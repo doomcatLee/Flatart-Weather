@@ -1,18 +1,32 @@
 package com.example.guest.weatherandroid.Model;
 
+import org.parceler.Parcel;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+@Parcel
 public class User {
 
     private String mHomeZipcode;
     private String mEmail;
     private String pushId;
-    private Map<String, String> mMoodWeather = new HashMap<String, String>();
 
     public User(){
     }
+
+    public String getmCity() {
+        return mCity;
+    }
+
+    public void setmCity(String mCity) {
+        this.mCity = mCity;
+    }
+
+    private String mCity;
+    private Map<String, String> mMoodWeather = new HashMap<String, String>();
+
 
     public ArrayList<Weather> getmSavedWeather() {
         return mSavedWeather;
