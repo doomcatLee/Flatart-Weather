@@ -23,9 +23,9 @@ public class Register3Activity extends AppCompatActivity implements View.OnClick
     private FirebaseAuth mAuth;
 
     private String mEmail;
-    private String mZipcode;
+    private EditText mLocation;
     private String mPassword;
-    private String mPasswordConfirm;
+
 
     AppService appService = new AppService();
     FirebaseService firebaseService = new FirebaseService();
@@ -41,19 +41,22 @@ public class Register3Activity extends AppCompatActivity implements View.OnClick
 
         Intent intent = getIntent();
 
-        mZipcode = ((EditText) findViewById(R.id.zipcode)).getText().toString();
+        mLocation = (EditText) findViewById(R.id.location);
         mEmail = intent.getStringExtra("email");
         mPassword = intent.getStringExtra("password");
         Log.d("email", mEmail);
         Log.d("password", mPassword);
+        Log.d("location", mLocation.getText().toString());
 
     }
 
     @Override
     public void onClick(View v) {
         if (v == mSubmitButton){
-                firebaseService.createNewUser(mEmail, mPassword, mAuth, this);
-            Intent intent = new Intent(Register3Activity.this, MainActivity.class);
+            firebaseService.createNewUser(mEmail, mPassword, mAuth, this);
+            Intent intent = new Intent(Register3Activity.this, ResultsActivity.class);
+            intent.putExtra("location", mLocation.getText().toString());
+            Log.d("before click", mLocation.getText().toString());
             startActivity(intent);
         }
     }

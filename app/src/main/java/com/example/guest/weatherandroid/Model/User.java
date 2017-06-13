@@ -1,5 +1,6 @@
 package com.example.guest.weatherandroid.Model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,10 +11,18 @@ public class User {
     private String pushId;
     private Map<String, String> mMoodWeather = new HashMap<String, String>();
 
-    public User(String zip, String email){
-        mHomeZipcode = zip;
-        mEmail = email;
+    public User(){
     }
+
+    public ArrayList<Weather> getmSavedWeather() {
+        return mSavedWeather;
+    }
+
+    public void setmSavedWeather(ArrayList<Weather> mSavedWeather) {
+        this.mSavedWeather = mSavedWeather;
+    }
+
+    private ArrayList<Weather> mSavedWeather = new ArrayList<Weather>();
 
     public String getmHomeZipcode() {
         return mHomeZipcode;
