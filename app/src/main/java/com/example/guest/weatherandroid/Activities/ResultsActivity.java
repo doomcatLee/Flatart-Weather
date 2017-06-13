@@ -19,6 +19,7 @@ import com.example.guest.weatherandroid.Services.AppService;
 import com.example.guest.weatherandroid.Services.FirebaseService;
 import com.example.guest.weatherandroid.Services.WeatherService;
 import com.example.guest.weatherandroid.adapters.ForecastListAdapter;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 
 import java.io.IOException;
@@ -59,32 +60,49 @@ public class ResultsActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.actionbutton, menu);
-        return true;
+        inflater.inflate(R.menu.menu_main, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item){
+    public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent = getIntent();
         String location = intent.getStringExtra("location");
 
 
-        if (item.getItemId() == R.id.saveButton){
-            appService.getWeather(location, new Callback() {
-                @Override
-                public void onFailure(Call call, IOException e) {
-                    e.printStackTrace();
-                }
-
-                @Override
-                public void onResponse(Call call, Response response)  {
-                    mWeather = appService.processResults(response);
-                    firebaseService.saveObjectToFirebase(mWeather);
-                }
-            });
+        int id = item.getItemId();
+        if (id == R.id.action_logout) {
+            logout();
+            return true;
         }
-        return true;
+        return super.onOptionsItemSelected(item);
     }
+        private void logout() {
+            FirebaseAuth.getInstance().signOut();
+            Intent intent = new Intent(ResultsActivity.this, IntroActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
+        }
+
+//          This is for saving data in firebase
+//        if (item.getItemId() == R.id.saveButton){
+//            appService.getWeather(location, new Callback() {
+//                @Override
+//                public void onFailure(Call call, IOException e) {
+//                    e.printStackTrace();
+//                }
+//
+//                @Override
+//                public void onResponse(Call call, Response response)  {
+//                    mWeather = appService.processResults(response);
+//                    firebaseService.saveObjectToFirebase(mWeather);
+//                }
+//            });
+//        }
+//        return true;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
