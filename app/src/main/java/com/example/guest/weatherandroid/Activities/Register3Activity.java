@@ -1,6 +1,8 @@
 package com.example.guest.weatherandroid.Activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,7 +19,8 @@ import com.google.firebase.database.ValueEventListener;
 
 public class Register3Activity extends AppCompatActivity implements View.OnClickListener {
 
-    //Initialize FirebaseService
+    private SharedPreferences mSharedPreferences;
+    private SharedPreferences.Editor mEditor;
 
     private TextView mSubmitButton;
     private FirebaseAuth mAuth;
@@ -39,6 +42,11 @@ public class Register3Activity extends AppCompatActivity implements View.OnClick
         mSubmitButton = (TextView) findViewById(R.id.submitButton);
         mSubmitButton.setOnClickListener(this);
 
+        //Shared Preferences here
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        mEditor = mSharedPreferences.edit();
+
+
         Intent intent = getIntent();
 
         mLocation = (EditText) findViewById(R.id.location);
@@ -54,11 +62,13 @@ public class Register3Activity extends AppCompatActivity implements View.OnClick
     public void onClick(View v) {
         if (v == mSubmitButton){
             firebaseService.createNewUser(mEmail, mPassword, mAuth, this);
+            addToSharedPreferences(mLocation.getText().toString());
             Intent intent = new Intent(Register3Activity.this, ResultsActivity.class);
-            intent.putExtra("location", mLocation.getText().toString());
-//            intent.putExtra("location", mEmail);
-            Log.d("before click", mLocation.getText().toString());
             startActivity(intent);
         }
+    }
+
+    private void addToSharedPreferences(String location) {
+        mEditor.putString("location", location).apply();
     }
 }

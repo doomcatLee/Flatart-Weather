@@ -1,6 +1,8 @@
 package com.example.guest.weatherandroid.Activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
@@ -13,9 +15,13 @@ import com.example.guest.weatherandroid.R;
 
 public class DataActivity extends AppCompatActivity {
 
+    private SharedPreferences mSharedPreferences;
+    private SharedPreferences.Editor mEditor;
+
     BottomNavigationView bottomNavigationView;
     private TextView mUserEmail;
     private TextView mUserLocation;
+    private String mLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,10 +31,12 @@ public class DataActivity extends AppCompatActivity {
         mUserEmail = (TextView) findViewById(R.id.email);
         mUserLocation = (TextView) findViewById(R.id.locationTextView);
 
-        Intent intent = getIntent();
-        String b = intent.getStringExtra("location");
+        //Shared Preferences here
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        mLocation = mSharedPreferences.getString("location", null);
 
-        mUserLocation.setText(b);
+
+        mUserLocation.setText(mLocation);
 
         bottomNavigationView  = (BottomNavigationView)
                 findViewById(R.id.bottom_navigation);

@@ -1,7 +1,9 @@
 package com.example.guest.weatherandroid.Activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
@@ -43,6 +45,8 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
     private ForecastListAdapter mAdapter;
     private User mUser;
     private FloatingActionButton mSaveButton;
+    private SharedPreferences mSharedPreferences;
+    private String mLocation;
     ArrayList<Weather> mWeather = new ArrayList<>();
 
 
@@ -102,15 +106,18 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results);
         ButterKnife.bind(this);
-        Intent intent = getIntent();
-        String location = intent.getStringExtra("location");
-        Log.d("location",location);
+
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        mLocation = mSharedPreferences.getString("location", null);
+
+
+
+        Log.d("location",mLocation);
         mSaveButton = (FloatingActionButton) findViewById(R.id.saveButton);
         mSaveButton.setOnClickListener(this);
 
         mUser = new User();
-        mUser.setmHomeZipcode(location);
-//        mUser.setmEmail(email);
+        mUser.setmHomeZipcode(mLocation);
 
         bottomNavigationView  = (BottomNavigationView)
                 findViewById(R.id.bottom_navigation);
@@ -143,7 +150,7 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
         firebaseService.initiateService();
         mFirebaseReference = firebaseService.getLocationReference();
 
-        appService.getWeather(location, new Callback() {
+        appService.getWeather(mLocation, new Callback() {
 
             @Override
             public void onFailure(Call call, IOException e) {
