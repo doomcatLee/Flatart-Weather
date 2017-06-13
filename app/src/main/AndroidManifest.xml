@@ -19,7 +19,10 @@
         <activity
             android:name=".Activities.MainActivity"
             android:theme="@style/NoAction" />
-        <activity android:name=".Activities.ResultsActivity" />
+        <activity android:name=".Activities.ResultsActivity"
+            android:theme="@style/NoAction">
+
+            </activity>
         <activity
             android:name=".Activities.RegisterActivity"
             android:theme="@style/NoAction" />
