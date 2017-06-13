@@ -80,7 +80,7 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent = getIntent();
-        String location = intent.getStringExtra("location");
+        String location = intent.getStringExtra("zipcode");
 
 
         int id = item.getItemId();
@@ -106,6 +106,7 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
         ButterKnife.bind(this);
         Intent intent = getIntent();
         String location = intent.getStringExtra("location");
+        Log.d("location",location);
         mSaveButton = (FloatingActionButton) findViewById(R.id.saveButton);
         mSaveButton.setOnClickListener(this);
 

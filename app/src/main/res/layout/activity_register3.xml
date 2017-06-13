@@ -55,7 +55,7 @@
     <!-- Login progress -->
 
     <EditText
-        android:id="@+id/zipcode"
+        android:id="@+id/location"
         android:layout_width="0dp"
         android:layout_height="69dp"
         android:ems="10"
