@@ -21,7 +21,7 @@
             android:theme="@style/NoAction" />
         <activity
             android:name=".Activities.ResultsActivity"
-            android:theme="@style/NoAction"></activity>
+            android:theme="@style/NoAction" />
         <activity
             android:name=".Activities.RegisterActivity"
             android:theme="@style/NoAction" />
@@ -45,7 +45,8 @@
             android:label="@string/title_activity_login"
             android:theme="@style/NoAction" />
         <activity android:name=".Activities.Register3Activity" />
-        <activity android:name=".Activities.DataActivity"></activity>
+        <activity android:name=".Activities.DataActivity" />
+        <activity android:name=".Activities.SavedUserListActivity"></activity>
     </application>
 
 </manifest>

@@ -48,7 +48,6 @@ public class Register3Activity extends AppCompatActivity implements View.OnClick
 
 
         Intent intent = getIntent();
-
         mLocation = (EditText) findViewById(R.id.location);
         mEmail = intent.getStringExtra("email");
         mPassword = intent.getStringExtra("password");
@@ -62,13 +61,15 @@ public class Register3Activity extends AppCompatActivity implements View.OnClick
     public void onClick(View v) {
         if (v == mSubmitButton){
             firebaseService.createNewUser(mEmail, mPassword, mAuth, this);
-            addToSharedPreferences(mLocation.getText().toString());
+            addToSharedPreferences(mLocation.getText().toString(),mEmail);
+
             Intent intent = new Intent(Register3Activity.this, ResultsActivity.class);
             startActivity(intent);
         }
     }
 
-    private void addToSharedPreferences(String location) {
+    private void addToSharedPreferences(String location,String email) {
         mEditor.putString("location", location).apply();
+        mEditor.putString("email", email).apply();
     }
 }

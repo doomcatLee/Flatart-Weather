@@ -47,6 +47,7 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
     private FloatingActionButton mSaveButton;
     private SharedPreferences mSharedPreferences;
     private String mLocation;
+    private String mEmail;
     ArrayList<Weather> mWeather = new ArrayList<>();
 
 
@@ -61,7 +62,7 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
     @Bind(R.id.weatherImageView)
     ImageView mWeatherImage;
 
-    @Bind(R.id.recyclerView)
+    @Bind(R.id.recyclerView1)
     RecyclerView mRecyclerView;
 
     @Bind(R.id.tempTextView)
@@ -83,8 +84,6 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent = getIntent();
         String location = intent.getStringExtra("zipcode");
-
-
         int id = item.getItemId();
         if (id == R.id.action_logout) {
             logout();
@@ -109,6 +108,7 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
 
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         mLocation = mSharedPreferences.getString("location", null);
+        mEmail = mSharedPreferences.getString("email", null);
 
 
 
@@ -118,6 +118,7 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
 
         mUser = new User();
         mUser.setmHomeZipcode(mLocation);
+        mUser.setmEmail(mEmail);
 
         bottomNavigationView  = (BottomNavigationView)
                 findViewById(R.id.bottom_navigation);
@@ -164,6 +165,7 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
 
                 //Set mWeather here when the api call is made
                 mUser.setmSavedWeather(mWeather);
+
                 ResultsActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -185,6 +187,8 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
                         mRecyclerView.setHasFixedSize(true);
                         mCityTextView.setText(city);
 
+                        mUser.setmCity(city);
+
                         appService.setImageDynamic(mWeatherImage,currentIconID);
 
                     }
@@ -204,7 +208,7 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
                     .getInstance()
                     .getReference(Constants.FIREBASE_CHILD_USER);
             databaseRef.push().setValue(mUser);
-            Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Saved to your account!", Toast.LENGTH_SHORT).show();
 
         }
     }

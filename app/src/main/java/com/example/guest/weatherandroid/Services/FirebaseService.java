@@ -33,7 +33,7 @@ public class FirebaseService {
 
 
     public void createNewUser(String b, String c, FirebaseAuth auth, Activity activity) {
-        final String email = b;
+        String email = b;
         String password = c;
 
 

@@ -11,7 +11,21 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.example.guest.weatherandroid.Constants;
+import com.example.guest.weatherandroid.Model.User;
 import com.example.guest.weatherandroid.R;
+import com.example.guest.weatherandroid.Services.FirebaseService;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Map;
 
 public class DataActivity extends AppCompatActivity {
 
@@ -19,17 +33,45 @@ public class DataActivity extends AppCompatActivity {
     private SharedPreferences.Editor mEditor;
 
     BottomNavigationView bottomNavigationView;
-    private TextView mUserEmail;
+    private TextView mUserCity;
     private TextView mUserLocation;
+    private TextView mUserEmail;
     private String mLocation;
+    private User mUser;
+    private ValueEventListener mUserReferenceListener;
+    private DatabaseReference mUserReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //FIREBASE STUFF
+
+        mUserReference = FirebaseDatabase.getInstance().getReference().child(Constants.FIREBASE_CHILD_USER);
+        mUserReferenceListener = mUserReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot child: dataSnapshot.getChildren()){
+                    Map<String, Object> item = (Map<String, Object>)child.getValue();
+
+                    String city = (String) item.get("mCity");
+                    String email = (String) item.get("mEmail");
+                    String zipcode = (String) item.get("mHomeZipcode");
+                    mUserCity.setText(city);
+                    mUserEmail.setText(email);
+                    mUserLocation.setText(zipcode);
+                    System.out.println(city+email+zipcode);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data);
 
-        mUserEmail = (TextView) findViewById(R.id.email);
+        mUserCity = (TextView) findViewById(R.id.cityTextView);
         mUserLocation = (TextView) findViewById(R.id.locationTextView);
+        mUserEmail = (TextView) findViewById(R.id.emailTextView);
 
         //Shared Preferences here
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -37,6 +79,7 @@ public class DataActivity extends AppCompatActivity {
 
 
         mUserLocation.setText(mLocation);
+
 
         bottomNavigationView  = (BottomNavigationView)
                 findViewById(R.id.bottom_navigation);
@@ -62,6 +105,12 @@ public class DataActivity extends AppCompatActivity {
                     }
                 });
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mUserReference.removeEventListener(mUserReferenceListener);
     }
 
 
