@@ -35,7 +35,7 @@ public class SavedUserListActivity extends AppCompatActivity {
 
     private void setUpFirebaseAdapter() {
         mFirebaseAdapter = new FirebaseRecyclerAdapter<User, FirebaseUserViewHolder>
-                (User.class, R.layout.user_list_item, FirebaseUserViewHolder.class,
+                (User.class, R.layout.forecast_list_item, FirebaseUserViewHolder.class,
                         mUserReference) {
 
             @Override

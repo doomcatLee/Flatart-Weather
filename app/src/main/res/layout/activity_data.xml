@@ -41,7 +41,8 @@
         android:id="@+id/recyclerView2"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:layout_alignParentBottom="true"
+        android:layout_marginTop="181dp"
+        android:layout_below="@+id/cityTextView"
         android:layout_alignParentStart="true" />
 
     <TextView
@@ -90,22 +91,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Your Email"
-        android:layout_alignBaseline="@+id/textView7"
-        android:layout_alignBottom="@+id/textView7"
-        android:layout_toEndOf="@+id/textView3" />
+        android:layout_centerVertical="true"
+        android:layout_alignStart="@+id/cityTextView" />
 
     <TextView
         android:id="@+id/emailTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/cityTextView"
-        android:layout_alignParentEnd="true"
-        android:layout_alignStart="@+id/textView9"
-        android:layout_alignTop="@+id/cityTextView"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/textView9"
+        android:layout_centerHorizontal="true"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="26dp"
         android:textSize="20sp"
-        android:textStyle="bold" />
+        android:textStyle="bold|italic" />
 
 
 </RelativeLayout>
