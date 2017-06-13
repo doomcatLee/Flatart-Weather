@@ -102,8 +102,8 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
         ButterKnife.bind(this);
         Intent intent = getIntent();
         String location = intent.getStringExtra("location");
-        mSaveButton = (FloatingActionButton) findViewById(R.id.saveButton);
-        mSaveButton.setOnClickListener(this);
+//        mSaveButton = (FloatingActionButton) findViewById(R.id.saveButton);
+//        mSaveButton.setOnClickListener(this);
 
 
 
