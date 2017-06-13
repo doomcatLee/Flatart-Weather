@@ -24,10 +24,8 @@ import com.example.guest.weatherandroid.Model.Weather;
 import com.example.guest.weatherandroid.R;
 import com.example.guest.weatherandroid.Services.AppService;
 import com.example.guest.weatherandroid.Services.FirebaseService;
-import com.example.guest.weatherandroid.Services.WeatherService;
 import com.example.guest.weatherandroid.adapters.ForecastListAdapter;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -65,7 +63,7 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
     @Bind(R.id.tempTextView)
     TextView mTempTextView;
 
-    @Bind(R.id.cityTextView)
+    @Bind(R.id.locationTextView)
     TextView mCityTextView;
 
 
@@ -112,7 +110,7 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
 
         mUser = new User();
         mUser.setmHomeZipcode(location);
-        mUser.setmEmail("doomcat@");
+//        mUser.setmEmail(email);
 
         bottomNavigationView  = (BottomNavigationView)
                 findViewById(R.id.bottom_navigation);
@@ -128,7 +126,7 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
                         }else if(item.getItemId() == R.id.action_data){
                             Intent intent2 = new Intent(ResultsActivity.this, DataActivity.class);
                             intent2.putExtra("email", mUser.getmEmail());
-                            intent2.putExtra("zipcode", mUser.getmHomeZipcode());
+                            intent2.putExtra("location", mUser.getmHomeZipcode());
                             startActivity(intent2);
                         }else if(item.getItemId() == R.id.action_search){
                             Intent intent3 = new Intent(ResultsActivity.this, MainActivity.class);

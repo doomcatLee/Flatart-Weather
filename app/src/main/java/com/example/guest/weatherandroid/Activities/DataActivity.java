@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -14,7 +15,7 @@ public class DataActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
     private TextView mUserEmail;
-    private TextView mUserZipcode;
+    private TextView mUserLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,13 +23,12 @@ public class DataActivity extends AppCompatActivity {
         setContentView(R.layout.activity_data);
 
         mUserEmail = (TextView) findViewById(R.id.email);
-        mUserZipcode = (TextView) findViewById(R.id.zipcode);
+        mUserLocation = (TextView) findViewById(R.id.locationTextView);
 
         Intent intent = getIntent();
-        String a = intent.getStringExtra("email");
-        String b = intent.getStringExtra("zipcode");
-        mUserEmail.setText(a);
-        mUserZipcode.setText(b);
+        String b = intent.getStringExtra("location");
+
+        mUserLocation.setText(b);
 
         bottomNavigationView  = (BottomNavigationView)
                 findViewById(R.id.bottom_navigation);

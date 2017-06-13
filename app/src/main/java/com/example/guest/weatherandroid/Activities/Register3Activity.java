@@ -56,6 +56,7 @@ public class Register3Activity extends AppCompatActivity implements View.OnClick
             firebaseService.createNewUser(mEmail, mPassword, mAuth, this);
             Intent intent = new Intent(Register3Activity.this, ResultsActivity.class);
             intent.putExtra("location", mLocation.getText().toString());
+//            intent.putExtra("location", mEmail);
             Log.d("before click", mLocation.getText().toString());
             startActivity(intent);
         }
