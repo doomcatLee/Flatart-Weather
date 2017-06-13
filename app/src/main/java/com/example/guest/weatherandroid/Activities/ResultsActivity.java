@@ -118,6 +118,8 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
         mUser.setmHomeZipcode(mLocation);
         mUser.setmEmail(mEmail);
 
+
+
         bottomNavigationView  = (BottomNavigationView)
                 findViewById(R.id.bottom_navigation);
 

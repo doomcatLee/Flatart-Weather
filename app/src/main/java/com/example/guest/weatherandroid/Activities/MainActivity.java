@@ -19,7 +19,7 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
-    @Bind(R.id.locationEditText)
+    @Bind(R.id.locationEditText2)
     EditText mLocationEditText;
     @Bind(R.id.getStartedButton)
     Button mGetWeatherButton;
@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String location = mLocationEditText.getText().toString();
             Intent intent = new Intent (MainActivity.this, ResultsActivity.class);
             intent.putExtra("location", location);
+            System.out.println(location);
             fbService.saveLocationToFirebase(location);
             startActivity(intent);
 
