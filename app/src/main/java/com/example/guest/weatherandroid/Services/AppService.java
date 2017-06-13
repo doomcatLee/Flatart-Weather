@@ -29,19 +29,24 @@ public class AppService extends WeatherService{
      * Args: (EditText) password, (EditText) passwordConfirm, (EditText) email and Activity
      * Returns: (Boolean) true or false
      */
-    public Boolean isValidForm(EditText password, EditText passwordConfirm, EditText email, Activity activity){
-        if (password.length() > 5 && passwordConfirm.length() > 5){
-            if (password.getText().toString().equals(passwordConfirm.getText().toString())){
-                if (email.getText().toString().contains("@")){
-                    return true;
-                }
-                Toast.makeText(activity, "Email must contain @", Toast.LENGTH_SHORT).show();
-                return false;
+
+    public Boolean isEmailValid(String e, Activity activity){
+        if (e.contains("@")){
+            return true;
+        }else{
+            Toast.makeText(activity, "Email must contain @", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+    }
+    public Boolean isPasswordValid(String p1,String p2, Activity activity){
+        if (p1.length() > 5 && p2.length() > 5){
+            if (p1.equals(p2)){
+                return true;
             }
             Toast.makeText(activity, "Both passwords must match", Toast.LENGTH_SHORT).show();
             return false;
         }
-        Toast.makeText(activity, "Password must be longer than " + password.length() + " digits", Toast.LENGTH_SHORT).show();
+        Toast.makeText(activity, "Password must be longer than " + p1.length() + " digits", Toast.LENGTH_SHORT).show();
         return false;
     }
 

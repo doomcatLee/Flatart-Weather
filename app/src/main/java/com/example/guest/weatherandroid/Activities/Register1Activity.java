@@ -9,11 +9,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.guest.weatherandroid.R;
+import com.example.guest.weatherandroid.Services.AppService;
 
 public class Register1Activity extends AppCompatActivity implements View.OnClickListener {
 
     private EditText mEmail;
     private TextView mNextButton;
+    AppService appService = new AppService();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +29,7 @@ public class Register1Activity extends AppCompatActivity implements View.OnClick
     @Override
     public void onClick(View v) {
         if (v == mNextButton){
-            if (v == mNextButton){
+            if(appService.isEmailValid(mEmail.getText().toString(), this)){
                 Intent intent = new Intent(Register1Activity.this, Register2Activity.class);
                 intent.putExtra("email",mEmail.getText().toString());
                 startActivity(intent);
