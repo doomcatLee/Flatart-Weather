@@ -114,7 +114,7 @@ public class ResultsActivity extends AppCompatActivity {
         mSaveButton = (FloatingActionButton) findViewById(R.id.saveButton);
 //        mSaveButton.setOnClickListener(this);
 
-        mUser = new User();
+        mUser = new User(mLocation, mEmail, "1");
         mUser.setmHomeZipcode(mLocation);
         mUser.setmEmail(mEmail);
 
