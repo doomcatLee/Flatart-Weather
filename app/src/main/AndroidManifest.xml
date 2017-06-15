@@ -46,7 +46,7 @@
             android:theme="@style/NoAction" />
         <activity android:name=".Activities.Register3Activity" />
         <activity android:name=".Activities.DataActivity" />
-        <activity android:name=".Activities.SavedUserListActivity"></activity>
+        <activity android:name=".Activities.SavedUserListActivity" />
     </application>
 
 </manifest>
