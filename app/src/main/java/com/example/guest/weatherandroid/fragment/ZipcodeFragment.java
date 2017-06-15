@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.guest.weatherandroid.Activities.DataActivity;
 import com.example.guest.weatherandroid.Activities.RegisterActivity;
 import com.example.guest.weatherandroid.R;
 
@@ -31,7 +32,7 @@ public class ZipcodeFragment extends Fragment {
     private EditText mPassword;
     private EditText mPasswordConfirm;
 
-    @Bind(R.id.btnNext2) TextView mNextButton;
+    @Bind(R.id.btnFinish) TextView mFinishButton;
 
     public ZipcodeFragment() {
         // Required empty public constructor
@@ -43,7 +44,7 @@ public class ZipcodeFragment extends Fragment {
         ButterKnife.bind(getActivity());
         View view = inflater.inflate(R.layout.fragment_zipcode, container, false);
 
-        mNextButton = (TextView) view.findViewById(R.id.btnNext2);
+        mFinishButton = (TextView) view.findViewById(R.id.btnFinish);
         mBackButton = (ImageView) view.findViewById(R.id.btnBack);
 
 
@@ -61,11 +62,11 @@ public class ZipcodeFragment extends Fragment {
         });
 
 
-        mNextButton.setOnClickListener(new View.OnClickListener() {
+        mFinishButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (v == mNextButton) {
-                    Intent intent = new Intent(getActivity(), RegisterActivity.class);
+                if (v == mFinishButton) {
+                    Intent intent = new Intent(getActivity(), DataActivity.class);
                     intent.putExtra("showZipcodeFragment", "1");
                     startActivity(intent);
                 }
