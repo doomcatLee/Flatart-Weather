@@ -12,8 +12,12 @@ public class User {
     private String mHomeZipcode;
     private String mEmail;
     private String pushId;
+    private String uid;
 
-    public User(){
+    public User(String z, String e, String i){
+        mHomeZipcode = z;
+        mEmail = e;
+        uid = i;
     }
 
     public String getmCity() {

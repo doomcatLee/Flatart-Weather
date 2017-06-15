@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Toast;
 
 
+import com.example.guest.weatherandroid.Model.User;
 import com.example.guest.weatherandroid.R;
 import com.example.guest.weatherandroid.fragment.EmailFragment;
 import com.example.guest.weatherandroid.fragment.PasswordFragment;
@@ -96,9 +97,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
          * */
         Intent i = getIntent();
         showPasswordFragment = i.getStringExtra("showPasswordFragment");
-        isFormDone = i.getStringExtra("isFormDone");
         passwordBackClicked = i.getStringExtra("passwordBackClicked");
         showZipcodeFragment = i.getStringExtra("showZipcodeFragment");
+        isFormDone = i.getStringExtra("isFormDone");
+        Log.d(TAG, "onCreate: FORM DONE STRING" + isFormDone);
 
 
         /** Grab user information using Shared Preferences* */
@@ -135,11 +137,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
          * */
         if(isFormDone != null){
             if(isFormDone.equals("1")){
+                Log.d(TAG, "onCreate: FORM DONE PASSED");
                 createNewUser();
 
             }else{
-                Log.d(TAG, "onCreate: WORK FRAGMENT IS NULL");
+                Log.d(TAG, "onCreate: FORM NOT DONE");
             }
+            Log.d(TAG, "onCreate: FORM FRAGMENT IS NULL");
         }
 
         /**
@@ -177,14 +181,14 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         }
         Log.d(TAG, "onCreate: ends");
     }
-//
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//        Log.d(TAG, "onStart: starts");
-//        mAuth.addAuthStateListener(mAuthListener);
-//        Log.d(TAG, "onStart: ends");
-//    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.d(TAG, "onStart: starts");
+        mAuth.addAuthStateListener(mAuthListener);
+        Log.d(TAG, "onStart: ends");
+    }
 
     @Override
     public void onStop() {
@@ -245,7 +249,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 final FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
-                    Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                    Intent intent = new Intent(RegisterActivity.this, DataActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                     finish();

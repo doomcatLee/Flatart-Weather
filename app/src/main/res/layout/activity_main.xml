@@ -7,28 +7,28 @@
     android:background="@drawable/trees"
     tools:context="com.example.guest.weatherandroid.Activities.MainActivity">
 
-    <!--<EditText-->
-        <!--android:id="@+id/locationEditText2"-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="49dp"-->
-        <!--android:layout_marginEnd="66dp"-->
-        <!--android:layout_marginLeft="66dp"-->
-        <!--android:layout_marginRight="66dp"-->
-        <!--android:layout_marginStart="66dp"-->
-        <!--android:ems="10"-->
-        <!--android:hint="Location"-->
-        <!--android:inputType="textPersonName"-->
-        <!--android:textColorHint="@color/colorPrimaryDark"-->
-        <!--android:textSize="20sp"-->
-        <!--app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--app:layout_constraintHorizontal_bias="0.541"-->
-        <!--app:layout_constraintLeft_toLeftOf="parent"-->
-        <!--app:layout_constraintRight_toRightOf="parent"-->
-        <!--app:layout_constraintTop_toTopOf="parent"-->
-        <!--tools:layout_constraintLeft_creator="1"-->
-        <!--tools:layout_constraintRight_creator="1"-->
-        <!--tools:layout_constraintTop_creator="1"-->
-        <!--tools:layout_constraintBottom_creator="1" />-->
+       <!--<EditText-->
+    <!--android:id="@+id/locationEditText2"-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="49dp"-->
+    <!--android:layout_marginEnd="66dp"-->
+    <!--android:layout_marginLeft="66dp"-->
+    <!--android:layout_marginRight="66dp"-->
+    <!--android:layout_marginStart="66dp"-->
+    <!--android:ems="10"-->
+    <!--android:hint="Location"-->
+    <!--android:inputType="textPersonName"-->
+    <!--android:textColorHint="@color/colorPrimaryDark"-->
+    <!--android:textSize="20sp"-->
+    <!--app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--app:layout_constraintHorizontal_bias="0.541"-->
+    <!--app:layout_constraintLeft_toLeftOf="parent"-->
+    <!--app:layout_constraintRight_toRightOf="parent"-->
+    <!--app:layout_constraintTop_toTopOf="parent"-->
+    <!--tools:layout_constraintLeft_creator="1"-->
+    <!--tools:layout_constraintRight_creator="1"-->
+    <!--tools:layout_constraintTop_creator="1"-->
+    <!--tools:layout_constraintBottom_creator="1" />-->
 
     <Button
         android:id="@+id/getStartedButton"

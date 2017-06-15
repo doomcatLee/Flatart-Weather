@@ -66,8 +66,8 @@ public class ZipcodeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (v == mFinishButton) {
-                    Intent intent = new Intent(getActivity(), DataActivity.class);
-                    intent.putExtra("showZipcodeFragment", "1");
+                    Intent intent = new Intent(getActivity(), RegisterActivity.class);
+                    intent.putExtra("isFormDone", "1");
                     startActivity(intent);
                 }
             }
