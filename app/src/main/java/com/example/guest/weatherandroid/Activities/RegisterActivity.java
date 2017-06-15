@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.example.guest.weatherandroid.R;
 import com.example.guest.weatherandroid.fragment.EmailFragment;
 import com.example.guest.weatherandroid.fragment.PasswordFragment;
+import com.example.guest.weatherandroid.fragment.ZipcodeFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -48,6 +49,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     private PasswordFragment mPasswordFragment;
     private EmailFragment mEmailFragment;
+    private ZipcodeFragment mZipcodeFragment;
 
 
     /**
@@ -57,6 +59,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     String showPasswordFragment = "0";
     String isFormDone = "0";
     String passwordBackClicked = "0";
+    String showZipcodeFragment = "0";
 
     /** User properties go here */
     private String userEmail;
@@ -85,6 +88,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         fragmentManager = getSupportFragmentManager();
         mPasswordFragment = new PasswordFragment();
         mEmailFragment = new EmailFragment();
+        mZipcodeFragment = new ZipcodeFragment();
 
 
         /**
@@ -94,6 +98,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         showPasswordFragment = i.getStringExtra("showPasswordFragment");
         isFormDone = i.getStringExtra("isFormDone");
         passwordBackClicked = i.getStringExtra("passwordBackClicked");
+        showZipcodeFragment = i.getStringExtra("showZipcodeFragment");
 
 
         /** Grab user information using Shared Preferences* */
@@ -138,55 +143,18 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         }
 
         /**
-         * Home Backbutton If conditions
+         * Zipcode Fragment
          * */
-//        if(workBackClicked != null){
-//            if(workBackClicked.equals("1")){
-//                Log.d(TAG, "onCreate: WORK BACK BUTTON CLICKED");
-//                transaction = fragmentManager.beginTransaction();
-//                transaction.replace(R.id.registerContent, mHomeFormFragment);
-//                transaction.commit();
-//            }
-//        }
-        /**
-         * Work Fragment if condition
-         * */
-//        if(showWorkFragment != null){
-//            if(showWorkFragment.equals("1")){
-//                Log.d(TAG, "onCreate: WORK FRAGMENT EQUALS 1 AND PROCESSING");
-//                transaction = fragmentManager.beginTransaction();
-//                transaction.replace(R.id.registerContent, mWorkFormFragment);
-//                transaction.commit();
-//            }
-//        }else{
-//            Log.d(TAG, "onCreate: WORK FRAGMENT IS NULL");
-//        }
-
-
-        /**
-         * Home Backbutton If conditions
-         * */
-//        if(homeBackClicked != null){
-//            if(homeBackClicked.equals("1")){
-//                Log.d(TAG, "onCreate: HOME BACK BUTTON CLICKED");
-//                transaction = fragmentManager.beginTransaction();
-//                transaction.replace(R.id.registerContent, mPasswordFormFragment);
-//                transaction.commit();
-//            }
-//        }
-        /**
-         * Home Fragment If conditions
-         * */
-//        if(showHomeFragment != null){
-//            if(showHomeFragment.equals("1")){
-//                Log.d(TAG, "onCreate: HOME FRAGMENT EQUALS 1 AND PROCESSING");
-//                transaction = fragmentManager.beginTransaction();
-//                transaction.replace(R.id.registerContent, mHomeFormFragment);
-//                transaction.commit();
-//            }
-//        }else{
-//            Log.d(TAG, "onCreate: HOME FRAGMENT IS NULL");
-//        }
+        if(showZipcodeFragment != null){
+            if(showZipcodeFragment.equals("1")){
+                Log.d(TAG, "onCreate: ZIPCODE FRAGMENT EQUALS 1 AND PROCESSING");
+                transaction = fragmentManager.beginTransaction();
+                transaction.replace(R.id.content, mZipcodeFragment);
+                transaction.commit();
+            }
+        }else{
+            Log.d(TAG, "onCreate: ZIPCODE FRAGMENT IS NULL");
+        }
 
         /**
          * If condition for PASSWORD FRAGMENT
@@ -209,7 +177,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         }
         Log.d(TAG, "onCreate: ends");
     }
-
+//
 //    @Override
 //    public void onStart() {
 //        super.onStart();

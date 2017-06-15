@@ -69,7 +69,7 @@ public class PasswordFragment extends Fragment {
                     Log.d(TAG, "PASSWORD FRAG " + mPassword.getText().toString() + mPasswordConfirm.getText().toString() );
                     addToSharedPreferences(mPassword.getText().toString(), mPasswordConfirm.getText().toString());
                     Intent intent = new Intent(getActivity(), RegisterActivity.class);
-                    intent.putExtra("showHomeFragment", "1");
+                    intent.putExtra("showZipcodeFragment", "1");
                     startActivity(intent);
                 }
             }
