@@ -21,7 +21,7 @@ import com.example.guest.weatherandroid.R;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class PasswordFragment extends Fragment {
+public class ZipcodeFragment extends Fragment {
 
     private SharedPreferences mSharedPref;
     private SharedPreferences.Editor mEditor;
@@ -33,7 +33,7 @@ public class PasswordFragment extends Fragment {
 
     @Bind(R.id.btnNext2) TextView mNextButton;
 
-    public PasswordFragment() {
+    public ZipcodeFragment() {
         // Required empty public constructor
     }
 
@@ -41,12 +41,11 @@ public class PasswordFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ButterKnife.bind(getActivity());
-        View view = inflater.inflate(R.layout.fragment_password, container, false);
+        View view = inflater.inflate(R.layout.fragment_zipcode, container, false);
 
         mNextButton = (TextView) view.findViewById(R.id.btnNext2);
         mBackButton = (ImageView) view.findViewById(R.id.btnBack);
-        mPassword = (EditText) view.findViewById(R.id.etPassword);
-        mPasswordConfirm = (EditText) view.findViewById(R.id.etPasswordConfirm);
+
 
         //Shared Prefences call onCreateView
         mSharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
@@ -56,7 +55,7 @@ public class PasswordFragment extends Fragment {
             @Override
             public void onClick(View v){
                 Intent intent = new Intent(getActivity(), RegisterActivity.class);
-                intent.putExtra("passwordBackClicked", "1");
+                intent.putExtra("zipcodeBackClicked", "1");
                 startActivity(intent);
             }
         });
@@ -66,8 +65,6 @@ public class PasswordFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (v == mNextButton) {
-                    Log.d(TAG, "PASSWORD FRAG " + mPassword.getText().toString() + mPasswordConfirm.getText().toString() );
-                    addToSharedPreferences(mPassword.getText().toString(), mPasswordConfirm.getText().toString());
                     Intent intent = new Intent(getActivity(), RegisterActivity.class);
                     intent.putExtra("showZipcodeFragment", "1");
                     startActivity(intent);

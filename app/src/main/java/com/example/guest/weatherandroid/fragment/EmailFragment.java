@@ -33,7 +33,7 @@ public class EmailFragment extends Fragment implements View.OnClickListener{
 
     private TextView mNextButton1;
     private ImageView mBackButton;
-    private EditText mEmailEditText;
+    private EditText mEmail;
 
     private static final String TAG = EmailFragment.class.getSimpleName();
 
@@ -52,14 +52,14 @@ public class EmailFragment extends Fragment implements View.OnClickListener{
         View view = inflater.inflate(R.layout.fragment_email, container, false);
         mNextButton1 = (TextView) view.findViewById(R.id.btnNext2);
         mBackButton = (ImageView) view.findViewById(R.id.btnBack);
-        mEmailEditText = ((EditText) view.findViewById(R.id.etEmail));
+        mEmail = ((EditText) view.findViewById(R.id.etEmail));
 
 
         mNextButton1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (v == mNextButton1) {
-                    addToSharedPreferences(mEmailEditText.getText().toString());
+                    addToSharedPreferences(mEmail.getText().toString());
                     Intent intent = new Intent(getActivity(), RegisterActivity.class);
                     intent.putExtra("showPasswordFragment", "1");
                     startActivity(intent);
