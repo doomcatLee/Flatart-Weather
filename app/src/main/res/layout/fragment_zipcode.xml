@@ -33,7 +33,6 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="164dp"
         android:text="What's your home zipcode?"
-        android:textColor="@android:color/background_light"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -55,7 +54,7 @@
         android:layout_marginLeft="16dp" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/zipcodeET"
         android:layout_width="0dp"
         android:layout_height="54dp"
         android:ems="10"

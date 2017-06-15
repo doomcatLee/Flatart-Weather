@@ -30,7 +30,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import butterknife.ButterKnife;
 
-public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
+public class RegisterActivity extends AppCompatActivity {
 
     private static final String TAG = RegisterActivity.class.getSimpleName();
 
@@ -66,6 +66,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private String userEmail;
     private String userPassword;
     private String userPasswordConfirm;
+    private String userZipcode;
 
     private DatabaseReference userAccounts;
 
@@ -100,14 +101,17 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         passwordBackClicked = i.getStringExtra("passwordBackClicked");
         showZipcodeFragment = i.getStringExtra("showZipcodeFragment");
         isFormDone = i.getStringExtra("isFormDone");
+        userZipcode = i.getStringExtra("zipcode");
         Log.d(TAG, "onCreate: FORM DONE STRING" + isFormDone);
 
 
         /** Grab user information using Shared Preferences* */
         mSharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        mEditor = mSharedPref.edit();
         userEmail = mSharedPref.getString("userEmail", null);
         userPassword = mSharedPref.getString("userPassword",null);
         userPasswordConfirm = mSharedPref.getString("userPasswordConfirm",null);
+
 
 
         Log.d(TAG, "VALUES PASSED FROM INTENT" + userEmail + userPassword + userPasswordConfirm);
@@ -138,6 +142,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         if(isFormDone != null){
             if(isFormDone.equals("1")){
                 Log.d(TAG, "onCreate: FORM DONE PASSED");
+                Log.d(TAG, "onCreate: IM IN THE FORMDONE SHAREDPREFERENCES" +userEmail + userZipcode);
+                addToSharedPreferences(userEmail);
                 createNewUser();
 
             }else{
@@ -207,10 +213,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         mAuthProgressDialog.setCancelable(false);
     }
 
-    @Override
-    public void onClick(View v) {
-
+    private void addToSharedPreferences(String e) {
+        mEditor.putString("email", userEmail).apply();
     }
+
 
     private void createNewUser() {
         Log.d(TAG, "createNewUser: "+ userEmail);
@@ -232,8 +238,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                             String userUid = user.getUid();
                             Uri userProfileImage = user.getPhotoUrl();
 
-//                            User newUser = new User(userEmail, userName, userUid, userProfileImage);
-//                            saveUserToFirebase(newUser);
+                            User newUser = new User(userEmail, userName, userUid);
+                            saveUserToFirebase(newUser);
                             mAuthProgressDialog.dismiss();
                         } else {
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
@@ -258,9 +264,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         };
     }
 
-//    @Override
-//    public void saveUserToFirebase(User user) {
-//        /** Store the user object in our users section of our database */
-//        userAccounts.push().setValue(user);
-//    }
+    public void saveUserToFirebase(User user) {
+        /** Store the user object in our users section of our database */
+        userAccounts.push().setValue(user);
+    }
 }

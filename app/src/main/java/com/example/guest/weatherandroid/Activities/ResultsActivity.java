@@ -110,6 +110,7 @@ public class ResultsActivity extends AppCompatActivity {
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         mLocation = mSharedPreferences.getString("location", null);
         mEmail = mSharedPreferences.getString("email", null);
+        Log.d("hey", "onCreate: LOCATION STRING" + mLocation);
 
         mSaveButton = (FloatingActionButton) findViewById(R.id.saveButton);
 //        mSaveButton.setOnClickListener(this);

@@ -24,15 +24,11 @@ import butterknife.ButterKnife;
 
 public class ZipcodeFragment extends Fragment {
 
-    private SharedPreferences mSharedPref;
-    private SharedPreferences.Editor mEditor;
 
     private static final String TAG = PasswordFragment.class.getSimpleName();
     private ImageView mBackButton;
-    private EditText mPassword;
-    private EditText mPasswordConfirm;
-
-    @Bind(R.id.btnFinish) TextView mFinishButton;
+    private EditText mZipcode;
+    private TextView mFinishButton;
 
     public ZipcodeFragment() {
         // Required empty public constructor
@@ -46,11 +42,7 @@ public class ZipcodeFragment extends Fragment {
 
         mFinishButton = (TextView) view.findViewById(R.id.btnFinish);
         mBackButton = (ImageView) view.findViewById(R.id.btnBack);
-
-
-        //Shared Prefences call onCreateView
-        mSharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        mEditor = mSharedPref.edit();
+        mZipcode = (EditText) view.findViewById(R.id.zipcodeET);
 
         mBackButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -67,6 +59,7 @@ public class ZipcodeFragment extends Fragment {
             public void onClick(View v) {
                 if (v == mFinishButton) {
                     Intent intent = new Intent(getActivity(), RegisterActivity.class);
+                    intent.putExtra("zipcode",mZipcode.getText().toString());
                     intent.putExtra("isFormDone", "1");
                     startActivity(intent);
                 }
@@ -75,11 +68,6 @@ public class ZipcodeFragment extends Fragment {
 
         return view;
 
-    }
-
-    private void addToSharedPreferences(String a, String b) {
-        mEditor.putString("userPassword", a).apply();
-        mEditor.putString("userPasswordConfirm", b).apply();
     }
 
 }
