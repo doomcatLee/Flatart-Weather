@@ -28,11 +28,15 @@ import com.example.guest.weatherandroid.Services.AppService;
 import com.example.guest.weatherandroid.Services.FirebaseService;
 import com.example.guest.weatherandroid.adapters.ForecastListAdapter;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -46,6 +50,10 @@ public class ResultsActivity extends AppCompatActivity {
     private User mUser;
     private FloatingActionButton mSaveButton;
     private SharedPreferences mSharedPreferences;
+
+    private ValueEventListener mUserReferenceListener;
+    private DatabaseReference mUserReference;
+
     private String mLocation;
     private String mEmail;
     ArrayList<Weather> mWeather = new ArrayList<>();
@@ -107,9 +115,11 @@ public class ResultsActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
 
+
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        mLocation = mSharedPreferences.getString("location", null);
         mEmail = mSharedPreferences.getString("email", null);
+        Intent intent = getIntent();
+        mLocation = mSharedPreferences.getString("userZipcode", null);
         Log.d("hey", "onCreate: LOCATION STRING" + mLocation);
 
         mSaveButton = (FloatingActionButton) findViewById(R.id.saveButton);
@@ -150,7 +160,7 @@ public class ResultsActivity extends AppCompatActivity {
 
         firebaseService.initiateService();
         mFirebaseReference = firebaseService.getLocationReference();
-
+        Log.d("test","onCreate: " + mLocation);
         appService.getWeather(mLocation, new Callback() {
 
             @Override
@@ -200,6 +210,7 @@ public class ResultsActivity extends AppCompatActivity {
         });
 
     }
+
 
 //    @Override
 //    public void onClick(View v){

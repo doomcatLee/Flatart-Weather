@@ -36,7 +36,6 @@ public class DataActivity extends AppCompatActivity {
     private SharedPreferences.Editor mEditor;
 
     BottomNavigationView bottomNavigationView;
-    private TextView mUserCity;
     private TextView mUserLocation;
     private TextView mUserEmail;
     private String mLocation;
@@ -46,8 +45,16 @@ public class DataActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //FIREBASE STUFF
 
+
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_data);
+
+        //SHARED PREFERENCES STUFF
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        mEditor = mSharedPreferences.edit();
+
+        //FIREBASE STUFF
         mUserReference = FirebaseDatabase.getInstance().getReference().child(Constants.FIREBASE_CHILD_USER);
         mUserReferenceListener = mUserReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -55,13 +62,15 @@ public class DataActivity extends AppCompatActivity {
                 for (DataSnapshot child: dataSnapshot.getChildren()){
                     Map<String, Object> item = (Map<String, Object>)child.getValue();
 
-                    String city = (String) item.get("mCity");
                     String email = (String) item.get("mEmail");
                     String zipcode = (String) item.get("mHomeZipcode");
-                    mUserCity.setText(city);
+
+                    mLocation = zipcode;
                     mUserEmail.setText(email);
                     mUserLocation.setText(zipcode);
-                    System.out.println(city+email+zipcode);
+                    mEditor.putString("userZipcode", zipcode).apply();
+
+                    Log.d("CURRENT ZIPCODE : ", zipcode);
                 }
             }
             @Override
@@ -69,17 +78,15 @@ public class DataActivity extends AppCompatActivity {
             }
         });
 
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_data);
-
-
-        mUserCity = (TextView) findViewById(R.id.cityTextView);
-        mUserLocation = (TextView) findViewById(R.id.locationTextView);
-        mUserEmail = (TextView) findViewById(R.id.emailTextView);
 
         //Shared Preferences here
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        mLocation = mSharedPreferences.getString("location", null);
+
+
+        mUserLocation = (TextView) findViewById(R.id.locationTextView);
+        mUserEmail = (TextView) findViewById(R.id.emailTextView);
+
+
 
 
         mUserLocation.setText(mLocation);
@@ -141,6 +148,7 @@ public class DataActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
 
 
 }

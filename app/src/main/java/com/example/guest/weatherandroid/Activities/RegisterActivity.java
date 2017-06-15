@@ -238,7 +238,7 @@ public class RegisterActivity extends AppCompatActivity {
                             String userUid = user.getUid();
                             Uri userProfileImage = user.getPhotoUrl();
 
-                            User newUser = new User(userEmail, userName, userUid);
+                            User newUser = new User(userZipcode, userEmail, userUid);
                             saveUserToFirebase(newUser);
                             mAuthProgressDialog.dismiss();
                         } else {
