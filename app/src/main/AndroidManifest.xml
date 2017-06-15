@@ -35,18 +35,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Activities.Register1Activity"
-            android:theme="@style/NoAction" />
-        <activity
-            android:name=".Activities.Register2Activity"
-            android:theme="@style/NoAction" />
-        <activity
             android:name=".Activities.LoginActivity"
             android:label="@string/title_activity_login"
             android:theme="@style/NoAction" />
-        <activity android:name=".Activities.Register3Activity" />
         <activity android:name=".Activities.DataActivity" />
-        <activity android:name=".Activities.SavedUserListActivity"></activity>
+        <activity android:name=".Activities.SavedUserListActivity" />
     </application>
 
 </manifest>

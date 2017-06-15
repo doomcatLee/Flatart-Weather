@@ -36,8 +36,8 @@ public class FirebaseUserViewHolder extends RecyclerView.ViewHolder implements V
     }
 
     public void bindUser(User user) {
-        TextView zipcode = (TextView) mView.findViewById(R.id.zipcode);
-        zipcode.setText(user.getmHomeZipcode());
+//        TextView zipcode = (TextView) mView.findViewById(R.id.zipcode);
+//        zipcode.setText(user.getmHomeZipcode());
     }
 
     @Override
