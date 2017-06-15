@@ -27,7 +27,7 @@ public class IntroActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
         if (v == mGetStartedButton){
-            Intent intent = new Intent(IntroActivity.this, Register1Activity.class);
+            Intent intent = new Intent(IntroActivity.this, RegisterActivity.class);
             startActivity(intent);
         }
 

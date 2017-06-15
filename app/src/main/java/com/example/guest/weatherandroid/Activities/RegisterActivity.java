@@ -1,7 +1,6 @@
 package com.example.guest.weatherandroid.Activities;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -13,13 +12,12 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 
 import com.example.guest.weatherandroid.R;
-import com.example.guest.weatherandroid.fragment.EmailFormFragment;
-import com.example.guest.weatherandroid.fragment.PasswordFormFragment;
+import com.example.guest.weatherandroid.fragment.EmailFragment;
+import com.example.guest.weatherandroid.fragment.PasswordFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -30,7 +28,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import butterknife.ButterKnife;
 
-public class RegisterActivity extends AppCompatActivity implements View.OnClickListener, Firebase {
+public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = RegisterActivity.class.getSimpleName();
 
@@ -47,8 +45,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     /**
      * Wise Commute Fragments
      * */
-    private EmailFormFragment mEmailFormFragment;
-    private PasswordFormFragment mPasswordFormFragment;
+
+    private PasswordFragment mPasswordFragment;
+    private EmailFragment mEmailFragment;
 
 
     /**
@@ -58,9 +57,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     String showPasswordFragment = "0";
     String isFormDone = "0";
     String passwordBackClicked = "0";
-
-
-    private TextView mNextButton1;
 
     /** User properties go here */
     private String userEmail;
@@ -87,8 +83,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
          * Instantiate form fragments
          **/
         fragmentManager = getSupportFragmentManager();
-        mEmailFormFragment = new EmailFormFragment();
-        mPasswordFormFragment = new PasswordFormFragment();
+        mPasswordFragment = new PasswordFragment();
+        mEmailFragment = new EmailFragment();
 
 
         /**
@@ -113,10 +109,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
          * By Default, always start EmailFormFragment as the main fragment for register
          * */
         transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.registerContent, mEmailFormFragment);
+        transaction.replace(R.id.content, mEmailFragment);
         transaction.commit();
+        Log.d(TAG, "onCreate: TRANSACTION REPLACE PASSWORD FORM FRAGMENT");
 
-        mNextButton1 = (TextView) findViewById(R.id.btnNext2);
         mAuth = FirebaseAuth.getInstance();
         createAuthStateListener();
         createAuthProgressDialog();
@@ -144,53 +140,53 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         /**
          * Home Backbutton If conditions
          * */
-        if(workBackClicked != null){
-            if(workBackClicked.equals("1")){
-                Log.d(TAG, "onCreate: WORK BACK BUTTON CLICKED");
-                transaction = fragmentManager.beginTransaction();
-                transaction.replace(R.id.registerContent, mHomeFormFragment);
-                transaction.commit();
-            }
-        }
+//        if(workBackClicked != null){
+//            if(workBackClicked.equals("1")){
+//                Log.d(TAG, "onCreate: WORK BACK BUTTON CLICKED");
+//                transaction = fragmentManager.beginTransaction();
+//                transaction.replace(R.id.registerContent, mHomeFormFragment);
+//                transaction.commit();
+//            }
+//        }
         /**
          * Work Fragment if condition
          * */
-        if(showWorkFragment != null){
-            if(showWorkFragment.equals("1")){
-                Log.d(TAG, "onCreate: WORK FRAGMENT EQUALS 1 AND PROCESSING");
-                transaction = fragmentManager.beginTransaction();
-                transaction.replace(R.id.registerContent, mWorkFormFragment);
-                transaction.commit();
-            }
-        }else{
-            Log.d(TAG, "onCreate: WORK FRAGMENT IS NULL");
-        }
+//        if(showWorkFragment != null){
+//            if(showWorkFragment.equals("1")){
+//                Log.d(TAG, "onCreate: WORK FRAGMENT EQUALS 1 AND PROCESSING");
+//                transaction = fragmentManager.beginTransaction();
+//                transaction.replace(R.id.registerContent, mWorkFormFragment);
+//                transaction.commit();
+//            }
+//        }else{
+//            Log.d(TAG, "onCreate: WORK FRAGMENT IS NULL");
+//        }
 
 
         /**
          * Home Backbutton If conditions
          * */
-        if(homeBackClicked != null){
-            if(homeBackClicked.equals("1")){
-                Log.d(TAG, "onCreate: HOME BACK BUTTON CLICKED");
-                transaction = fragmentManager.beginTransaction();
-                transaction.replace(R.id.registerContent, mPasswordFormFragment);
-                transaction.commit();
-            }
-        }
+//        if(homeBackClicked != null){
+//            if(homeBackClicked.equals("1")){
+//                Log.d(TAG, "onCreate: HOME BACK BUTTON CLICKED");
+//                transaction = fragmentManager.beginTransaction();
+//                transaction.replace(R.id.registerContent, mPasswordFormFragment);
+//                transaction.commit();
+//            }
+//        }
         /**
          * Home Fragment If conditions
          * */
-        if(showHomeFragment != null){
-            if(showHomeFragment.equals("1")){
-                Log.d(TAG, "onCreate: HOME FRAGMENT EQUALS 1 AND PROCESSING");
-                transaction = fragmentManager.beginTransaction();
-                transaction.replace(R.id.registerContent, mHomeFormFragment);
-                transaction.commit();
-            }
-        }else{
-            Log.d(TAG, "onCreate: HOME FRAGMENT IS NULL");
-        }
+//        if(showHomeFragment != null){
+//            if(showHomeFragment.equals("1")){
+//                Log.d(TAG, "onCreate: HOME FRAGMENT EQUALS 1 AND PROCESSING");
+//                transaction = fragmentManager.beginTransaction();
+//                transaction.replace(R.id.registerContent, mHomeFormFragment);
+//                transaction.commit();
+//            }
+//        }else{
+//            Log.d(TAG, "onCreate: HOME FRAGMENT IS NULL");
+//        }
 
         /**
          * If condition for PASSWORD FRAGMENT
@@ -198,29 +194,29 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         if(showPasswordFragment != null) {
             if (showPasswordFragment.equals("1")) {
                 transaction = fragmentManager.beginTransaction();
-                transaction.replace(R.id.registerContent, mPasswordFormFragment);
+                transaction.replace(R.id.content, mPasswordFragment);
                 transaction.commit();
             } else if (passwordBackClicked.equals("1")){
                 Log.d(TAG, "onCreate: PASSWORD BACK HAS BEEN CLICKED");
                 transaction = fragmentManager.beginTransaction();
-                transaction.replace(R.id.registerContent, mEmailFormFragment);
+                transaction.replace(R.id.content, mEmailFragment);
                 transaction.commit();
             }else{
                 transaction = fragmentManager.beginTransaction();
-                transaction.replace(R.id.registerContent, mEmailFormFragment);
+                transaction.replace(R.id.content, mEmailFragment);
                 transaction.commit();
             }
         }
         Log.d(TAG, "onCreate: ends");
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        Log.d(TAG, "onStart: starts");
-        mAuth.addAuthStateListener(mAuthListener);
-        Log.d(TAG, "onStart: ends");
-    }
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        Log.d(TAG, "onStart: starts");
+//        mAuth.addAuthStateListener(mAuthListener);
+//        Log.d(TAG, "onStart: ends");
+//    }
 
     @Override
     public void onStop() {
@@ -264,8 +260,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                             String userUid = user.getUid();
                             Uri userProfileImage = user.getPhotoUrl();
 
-                            User newUser = new User(userEmail, userName, userUid, userProfileImage);
-                            saveUserToFirebase(newUser);
+//                            User newUser = new User(userEmail, userName, userUid, userProfileImage);
+//                            saveUserToFirebase(newUser);
                             mAuthProgressDialog.dismiss();
                         } else {
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
@@ -290,9 +286,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         };
     }
 
-    @Override
-    public void saveUserToFirebase(User user) {
-        /** Store the user object in our users section of our database */
-        userAccounts.push().setValue(user);
-    }
+//    @Override
+//    public void saveUserToFirebase(User user) {
+//        /** Store the user object in our users section of our database */
+//        userAccounts.push().setValue(user);
+//    }
 }

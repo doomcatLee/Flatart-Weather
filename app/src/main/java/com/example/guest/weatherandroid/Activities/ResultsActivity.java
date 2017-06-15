@@ -40,7 +40,7 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
-public class ResultsActivity extends AppCompatActivity implements View.OnClickListener {
+public class ResultsActivity extends AppCompatActivity {
 
     private ForecastListAdapter mAdapter;
     private User mUser;
@@ -112,7 +112,7 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
         mEmail = mSharedPreferences.getString("email", null);
 
         mSaveButton = (FloatingActionButton) findViewById(R.id.saveButton);
-        mSaveButton.setOnClickListener(this);
+//        mSaveButton.setOnClickListener(this);
 
         mUser = new User();
         mUser.setmHomeZipcode(mLocation);
@@ -200,16 +200,16 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
 
     }
 
-    @Override
-    public void onClick(View v){
-        if(v == mSaveButton){
-            DatabaseReference databaseRef = FirebaseDatabase
-                    .getInstance()
-                    .getReference(Constants.FIREBASE_CHILD_USER);
-            databaseRef.push().setValue(mUser);
-            Toast.makeText(this, "Saved to your account!", Toast.LENGTH_SHORT).show();
-
-        }
-    }
+//    @Override
+//    public void onClick(View v){
+//        if(v == mSaveButton){
+//            DatabaseReference databaseRef = FirebaseDatabase
+//                    .getInstance()
+//                    .getReference(Constants.FIREBASE_CHILD_USER);
+//            databaseRef.push().setValue(mUser);
+//            Toast.makeText(this, "Saved to your account!", Toast.LENGTH_SHORT).show();
+//
+//        }
+//    }
 
 }

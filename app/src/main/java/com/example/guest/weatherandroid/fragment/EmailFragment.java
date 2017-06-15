@@ -1,10 +1,10 @@
 package com.example.guest.weatherandroid.fragment;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +23,7 @@ import butterknife.ButterKnife;
  * Created by Gun Lee.
  */
 
-public class EmailFormFragment extends Fragment implements View.OnClickListener{
+public class EmailFragment extends Fragment implements View.OnClickListener{
 
     private SharedPreferences mSharedPref;
     private SharedPreferences.Editor mEditor;
@@ -35,9 +35,9 @@ public class EmailFormFragment extends Fragment implements View.OnClickListener{
     private ImageView mBackButton;
     private EditText mEmailEditText;
 
-    private static final String TAG = EmailFormFragment.class.getSimpleName();
+    private static final String TAG = EmailFragment.class.getSimpleName();
 
-    public EmailFormFragment(){
+    public EmailFragment(){
 
 
     }
@@ -50,9 +50,9 @@ public class EmailFormFragment extends Fragment implements View.OnClickListener{
 
         ButterKnife.bind(getActivity());
         View view = inflater.inflate(R.layout.fragment_email, container, false);
-//        mNextButton1 = (TextView) view.findViewById(R.id.btnNext2);
-//        mBackButton = (ImageView) view.findViewById(R.id.btnBack);
-//        mEmailEditText = ((EditText) view.findViewById(R.id.etEmail));
+        mNextButton1 = (TextView) view.findViewById(R.id.btnNext2);
+        mBackButton = (ImageView) view.findViewById(R.id.btnBack);
+        mEmailEditText = ((EditText) view.findViewById(R.id.etEmail));
 
 
         mNextButton1.setOnClickListener(new View.OnClickListener() {

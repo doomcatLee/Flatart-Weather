@@ -21,19 +21,19 @@ import com.example.guest.weatherandroid.R;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class PasswordFormFragment extends Fragment {
+public class PasswordFragment extends Fragment {
 
     private SharedPreferences mSharedPref;
     private SharedPreferences.Editor mEditor;
 
-    private static final String TAG = EmailFormFragment.class.getSimpleName();
+    private static final String TAG = PasswordFragment.class.getSimpleName();
     private ImageView mBackButton;
     private EditText mPassword;
     private EditText mPasswordConfirm;
 
     @Bind(R.id.btnNext2) TextView mNextButton;
 
-    public PasswordFormFragment() {
+    public PasswordFragment() {
         // Required empty public constructor
     }
 
