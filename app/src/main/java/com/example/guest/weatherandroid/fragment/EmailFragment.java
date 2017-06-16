@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.example.guest.weatherandroid.Activities.IntroActivity;
 import com.example.guest.weatherandroid.Activities.RegisterActivity;
 import com.example.guest.weatherandroid.R;
+import com.example.guest.weatherandroid.Services.AppService;
 
 import butterknife.ButterKnife;
 
@@ -24,6 +25,8 @@ import butterknife.ButterKnife;
  */
 
 public class EmailFragment extends Fragment implements View.OnClickListener{
+
+    AppService service = new AppService();
 
     private SharedPreferences mSharedPref;
     private SharedPreferences.Editor mEditor;
@@ -59,10 +62,15 @@ public class EmailFragment extends Fragment implements View.OnClickListener{
             @Override
             public void onClick(View v) {
                 if (v == mNextButton1) {
-                    addToSharedPreferences(mEmail.getText().toString());
-                    Intent intent = new Intent(getActivity(), RegisterActivity.class);
-                    intent.putExtra("showPasswordFragment", "1");
-                    startActivity(intent);
+                    if(service.isEmailValid(mEmail.getText().toString(), getActivity())){
+                        addToSharedPreferences(mEmail.getText().toString());
+                        Intent intent = new Intent(getActivity(), RegisterActivity.class);
+                        intent.putExtra("showPasswordFragment", "1");
+                        startActivity(intent);
+                    }else{
+                        service.applyShakeAnimation(mEmail);
+                    }
+
                 }
             }
         });

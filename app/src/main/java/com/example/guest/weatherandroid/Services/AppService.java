@@ -15,6 +15,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.example.guest.weatherandroid.Model.Weather;
 import com.example.guest.weatherandroid.R;
 import com.example.guest.weatherandroid.adapters.ForecastListAdapter;
@@ -26,6 +28,23 @@ public class AppService extends WeatherService{
     public AppService(){
 
     }
+
+    /**
+     * Apply Animation from daimajia/androidviewanimation
+     * Args: View before and View after
+     * Returns: none
+     */
+
+    public void applyShakeAnimation(View view){
+        YoYo.with(Techniques.Shake)
+                .duration(700)
+                .repeat(1)
+                .playOn(view);
+    }
+
+
+
+
 
     /**
      * Apply cross fade between two views in the same activity

@@ -52,13 +52,10 @@ public class IntroActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
         if (v == mGetStartedButton){
-//            Intent intent = new Intent(IntroActivity.this, RegisterActivity.class);
-//            startActivity(intent);
-//            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-            YoYo.with(Techniques.Tada)
-                    .duration(700)
-                    .repeat(1)
-                    .playOn(findViewById(R.id.getStartedButton));
+            Intent intent = new Intent(IntroActivity.this, RegisterActivity.class);
+            startActivity(intent);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+
         }
 
         if (v == mLogin){
