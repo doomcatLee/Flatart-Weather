@@ -28,11 +28,13 @@
         <activity
             android:name=".Activities.IntroActivity"
             android:theme="@style/NoAction">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity
             android:name=".Activities.LoginActivity"
@@ -40,6 +42,9 @@
             android:theme="@style/NoAction" />
         <activity android:name=".Activities.DataActivity" />
         <activity android:name=".Activities.SavedUserListActivity" />
+        <activity android:name=".Activities.AnimateActivity">
+
+        </activity>
     </application>
 
 </manifest>
