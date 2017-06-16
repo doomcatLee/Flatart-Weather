@@ -2,6 +2,7 @@ package com.example.guest.weatherandroid.Activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
@@ -58,6 +59,8 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
     private String mEmail;
     ArrayList<Weather> mWeather = new ArrayList<>();
 
+    private int mOrientation;
+
 
     BottomNavigationView bottomNavigationView;
 
@@ -113,6 +116,11 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results);
         ButterKnife.bind(this);
+
+        mOrientation = getResources().getConfiguration().orientation;
+        if (mOrientation == Configuration.ORIENTATION_LANDSCAPE) {
+        }
+
 
 
 

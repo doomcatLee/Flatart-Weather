@@ -10,12 +10,11 @@
 
     <ImageView
         android:id="@+id/weatherImageView"
-        android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:layout_alignParentEnd="true"
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+
         android:adjustViewBounds="false"
         android:scaleType="centerCrop"
-
         android:src="@drawable/trees"
         app:layout_constraintBottom_toTopOf="@+id/tempTextView"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -24,11 +23,13 @@
         tools:layout_constraintBottom_creator="1"
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintRight_creator="1"
-        tools:layout_constraintTop_creator="1" />
+        tools:layout_constraintTop_creator="1"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:id="@+id/locationTextView"
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="35dp"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/tempTextView"
@@ -45,10 +46,10 @@
 
     <TextView
         android:id="@+id/tempTextView"
-        android:layout_width="200dp"
+        android:layout_width="300dp"
         android:layout_height="90dp"
+        android:layout_alignParentStart="true"
         android:layout_below="@+id/weatherImageView"
-        android:layout_centerHorizontal="true"
         android:textAlignment="center"
         android:textColor="@android:color/holo_red_light"
         android:textSize="80sp"
@@ -79,12 +80,9 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView1"
-        android:layout_width="match_parent"
-        android:layout_height="160dp"
+        android:layout_width="290dp"
+        android:layout_height="300dp"
 
-        android:layout_above="@+id/bottom_navigation"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentStart="true"
         app:layout_constraintBottom_toBottomOf="@+id/saveButton"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -92,7 +90,9 @@
         tools:layout_constraintBottom_creator="1"
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintRight_creator="1"
-        tools:layout_constraintTop_creator="1" />
+        tools:layout_constraintTop_creator="1"
+        android:layout_below="@+id/weatherImageView"
+        android:layout_alignParentEnd="true" />
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottom_navigation"
@@ -103,6 +103,14 @@
         app:itemIconTint="@color/white"
         app:itemTextColor="@color/white"
         app:menu="@menu/menu" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="295dp"
+        android:layout_height="100dp"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/weatherImageView"
+        app:srcCompat="@drawable/forecast" />
 
 
 </RelativeLayout>
