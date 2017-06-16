@@ -145,6 +145,7 @@ public class RegisterActivity extends AppCompatActivity {
                 Log.d(TAG, "onCreate: IM IN THE FORMDONE SHAREDPREFERENCES" +userEmail + userZipcode);
                 addToSharedPreferences(userEmail);
                 createNewUser();
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 
             }else{
                 Log.d(TAG, "onCreate: FORM NOT DONE");
@@ -161,6 +162,7 @@ public class RegisterActivity extends AppCompatActivity {
                 transaction = fragmentManager.beginTransaction();
                 transaction.replace(R.id.content, mZipcodeFragment);
                 transaction.commit();
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             }
         }else{
             Log.d(TAG, "onCreate: ZIPCODE FRAGMENT IS NULL");
@@ -174,6 +176,7 @@ public class RegisterActivity extends AppCompatActivity {
                 transaction = fragmentManager.beginTransaction();
                 transaction.replace(R.id.content, mPasswordFragment);
                 transaction.commit();
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             } else if (passwordBackClicked.equals("1")){
                 Log.d(TAG, "onCreate: PASSWORD BACK HAS BEEN CLICKED");
                 transaction = fragmentManager.beginTransaction();
