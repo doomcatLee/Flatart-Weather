@@ -1,4 +1,4 @@
-# Flatart Weather
+<img src="https://user-images.githubusercontent.com/12318904/27240698-a95a368c-528a-11e7-9097-f14a47a07bc4.png">
 
 [![Build Status](https://travis-ci.org/doomcatlee/badges.svg?branch=master)](https://travis-ci.org/doomcatLee/Flatart-Weather)  [![License](https://img.shields.io/badge/license-MIT%20License-brightgreen.svg)](https://opensource.org/licenses/MIT)  ![Contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)
 [![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/sindresorhus/awesome)
