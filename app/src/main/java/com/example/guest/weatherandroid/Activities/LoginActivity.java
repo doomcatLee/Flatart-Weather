@@ -52,6 +52,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     EditText mEmailEditText;
     EditText mPasswordEditText;
     TextView mLoginButton;
+    TextView mSignUpButton;
 
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseAuth mAuth;
@@ -67,6 +68,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         mLoginButton = (TextView) findViewById(R.id.loginButton);
         mLoginButton.setOnClickListener(this);
+
+        mSignUpButton = (TextView) findViewById(R.id.signUpButton);
+        mSignUpButton.setOnClickListener(this);
 
         createAuthProgressDialog();
 
@@ -128,6 +132,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         if(v == mLoginButton){
             loginWithPassword();
+            overridePendingTransition(R.animator.flip_start, R.animator.flip_end);
+        }if (v == mSignUpButton){
+            Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         }
     }
 
