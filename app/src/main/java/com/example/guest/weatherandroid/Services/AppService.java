@@ -1,12 +1,15 @@
 package com.example.guest.weatherandroid.Services;
 
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,6 +25,40 @@ public class AppService extends WeatherService{
 
     public AppService(){
 
+    }
+
+    /**
+     * Apply cross fade between two views in the same activity
+     * Args: View1 and View2
+     * Returns: none
+     */
+
+    private void crossfade(View v1, View v2) {
+
+        // Set the content view to 0% opacity but visible, so that it is visible
+        // (but fully transparent) during the animation.
+        v1.setAlpha(0f);
+        v1.setVisibility(View.VISIBLE);
+
+        // Animate the content view to 100% opacity, and clear any animation
+        // listener set on the view.
+        v2.animate()
+                .alpha(1f)
+                .setDuration(10)
+                .setListener(null);
+
+        // Animate the loading view to 0% opacity. After the animation ends,
+        // set its visibility to GONE as an optimization step (it won't
+        // participate in layout passes, etc.)
+        v2.animate()
+                .alpha(0f)
+                .setDuration(10)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        v2.setVisibility(View.GONE);
+                    }
+                });
     }
 
     /**
