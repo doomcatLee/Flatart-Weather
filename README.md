@@ -1,6 +1,6 @@
 # Flatart Weather
 
- ![Version 1.0] [![License](https://img.shields.io/badge/license-MIT%20License-brightgreen.svg)](https://opensource.org/licenses/MIT)
+ ![Version 1.0](https://github.com/doomcatLee/Flatart-Weather) [![License](https://img.shields.io/badge/license-MIT%20License-brightgreen.svg)](https://opensource.org/licenses/MIT)
 
 ## Overview
 
