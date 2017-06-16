@@ -6,6 +6,8 @@
 
 ![](http://g.recordit.co/nC6TqiyKDv.gif | width=100)
 
+<img src="http://g.recordit.co/nC6TqiyKDv.gif" alt="alt text" width="200" height="200">
+
 ## Overview
 
 Flatart weather displays realtime weather in flatart. Users are able to search weather by zipcode once they have logged in or signed up. User information and preferences are stored in Firebase.
