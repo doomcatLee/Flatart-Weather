@@ -8,7 +8,7 @@
 
 Flatart weather displays realtime weather in flatart. Users are able to search weather by zipcode once they have logged in or signed up. User information and preferences are stored in Firebase.
 
-# Registration Demo
+# Signup Demo
 
 <img src="http://g.recordit.co/nC6TqiyKDv.gif" alt="alt text" width="300" height="600">
 
