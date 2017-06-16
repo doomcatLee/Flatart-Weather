@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             System.out.println("MAINACTIVITY LOCATION: location " + location);
             fbService.saveLocationToFirebase(location);
             startActivity(intent);
+            overridePendingTransition(R.animator.flip_start, R.animator.flip_end);
 
         }
 

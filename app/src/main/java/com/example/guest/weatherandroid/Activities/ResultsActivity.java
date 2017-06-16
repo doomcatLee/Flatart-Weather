@@ -152,9 +152,11 @@ public class ResultsActivity extends AppCompatActivity implements View.OnClickLi
                             intent2.putExtra("email", mUser.getmEmail());
                             intent2.putExtra("location", mUser.getmHomeZipcode());
                             startActivity(intent2);
+                            overridePendingTransition(R.animator.flip_start, R.animator.flip_end);
                         }else if(item.getItemId() == R.id.action_search){
                             Intent intent3 = new Intent(ResultsActivity.this, MainActivity.class);
                             startActivity(intent3);
+                            overridePendingTransition(R.animator.flip_start, R.animator.flip_end);
                         }else{
 
                         }

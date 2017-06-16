@@ -103,12 +103,14 @@ public class DataActivity extends AppCompatActivity {
                         if (item.getItemId() == R.id.action_home){
                             Intent intent1 = new Intent(DataActivity.this, ResultsActivity.class);
                             startActivity(intent1);
+                            overridePendingTransition(R.animator.flip_start, R.animator.flip_end);
                         }else if(item.getItemId() == R.id.action_data){
 //                            Intent intent2 = new Intent(DataActivity.this, DataActivity.class);
 //                            startActivity(intent2);
                         }else if(item.getItemId() == R.id.action_search){
                             Intent intent3 = new Intent(DataActivity.this, MainActivity.class);
                             startActivity(intent3);
+                            overridePendingTransition(R.animator.flip_start, R.animator.flip_end);
                         }else{
 
                         }

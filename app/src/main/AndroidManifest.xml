@@ -42,9 +42,6 @@
             android:theme="@style/NoAction" />
         <activity android:name=".Activities.DataActivity" />
         <activity android:name=".Activities.SavedUserListActivity" />
-        <activity android:name=".Activities.AnimateActivity">
-
-        </activity>
     </application>
 
 </manifest>
