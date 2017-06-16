@@ -18,12 +18,13 @@ import android.widget.TextView;
 import com.example.guest.weatherandroid.Activities.DataActivity;
 import com.example.guest.weatherandroid.Activities.RegisterActivity;
 import com.example.guest.weatherandroid.R;
+import com.example.guest.weatherandroid.Services.AppService;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class ZipcodeFragment extends Fragment {
-
+    AppService service = new AppService();
 
     private static final String TAG = PasswordFragment.class.getSimpleName();
     private ImageView mBackButton;
@@ -58,10 +59,14 @@ public class ZipcodeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (v == mFinishButton) {
-                    Intent intent = new Intent(getActivity(), RegisterActivity.class);
-                    intent.putExtra("zipcode",mZipcode.getText().toString());
-                    intent.putExtra("isFormDone", "1");
-                    startActivity(intent);
+                    if(service.isZipcodeValid(mZipcode.getText().toString(), getActivity())){
+                        Intent intent = new Intent(getActivity(), RegisterActivity.class);
+                        intent.putExtra("zipcode",mZipcode.getText().toString());
+                        intent.putExtra("isFormDone", "1");
+                        startActivity(intent);
+                    }else{
+                        service.applyShakeAnimation(mZipcode);
+                    }
                 }
             }
         });
