@@ -4,12 +4,14 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
@@ -21,12 +23,20 @@ public class IntroActivity extends AppCompatActivity implements View.OnClickList
     TextView mLogin;
     private View mIntroView;
     private View mRegisterView;
+    private int mOrientation;
     private int mShortAnimationDuration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
+
+        mOrientation = getResources().getConfiguration().orientation;
+        if (mOrientation == Configuration.ORIENTATION_LANDSCAPE) {
+        }
+
+
+
         mGetStartedButton = (Button) findViewById(R.id.getStartedButton);
         mGetStartedButton.setOnClickListener(this);
         mLogin = (TextView) findViewById(R.id.loginTextView);
