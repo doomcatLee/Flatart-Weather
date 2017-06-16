@@ -17,11 +17,14 @@ import android.widget.TextView;
 
 import com.example.guest.weatherandroid.Activities.RegisterActivity;
 import com.example.guest.weatherandroid.R;
+import com.example.guest.weatherandroid.Services.AppService;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class PasswordFragment extends Fragment {
+
+    AppService service = new AppService();
 
     private SharedPreferences mSharedPref;
     private SharedPreferences.Editor mEditor;
@@ -66,11 +69,16 @@ public class PasswordFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (v == mNextButton) {
-                    Log.d(TAG, "PASSWORD FRAG " + mPassword.getText().toString() + mPasswordConfirm.getText().toString() );
-                    addToSharedPreferences(mPassword.getText().toString(), mPasswordConfirm.getText().toString());
-                    Intent intent = new Intent(getActivity(), RegisterActivity.class);
-                    intent.putExtra("showZipcodeFragment", "1");
-                    startActivity(intent);
+                    if(service.isPasswordValid(mPassword.getText().toString(), mPasswordConfirm.getText().toString(),getActivity())){
+                        Log.d(TAG, "PASSWORD FRAG " + mPassword.getText().toString() + mPasswordConfirm.getText().toString() );
+                        addToSharedPreferences(mPassword.getText().toString(), mPasswordConfirm.getText().toString());
+                        Intent intent = new Intent(getActivity(), RegisterActivity.class);
+                        intent.putExtra("showZipcodeFragment", "1");
+                        startActivity(intent);
+                    }else{
+                        service.applyShakeAnimation(mPassword);
+                        service.applyShakeAnimation(mPasswordConfirm);
+                    }
                 }
             }
         });

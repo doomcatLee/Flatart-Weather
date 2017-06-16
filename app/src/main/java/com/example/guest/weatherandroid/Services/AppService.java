@@ -15,18 +15,47 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.example.guest.weatherandroid.Model.Weather;
 import com.example.guest.weatherandroid.R;
 import com.example.guest.weatherandroid.adapters.ForecastListAdapter;
 
 import java.text.DecimalFormat;
 
+/**
+ * Created by Gun Lee
+ * App Service has multiple helper functions that are used through the application.
+ * These methods are reusable as they are abstract methods
+ *
+ * METHODS:
+ * 1. applyShakeAnimation()
+ * 2. crossFade()
+ * 3. isEmailValid()
+ * 4. isPasswordValid()
+ * 5. isZipcodeValid()
+ * 6. formatTemp()
+ * 7. setImageDynamic()
+ * 8. setFonts()
+ */
+
 public class AppService extends WeatherService{
 
     public AppService(){
 
     }
+    /**
+     * Apply Shake Animation from daimajia/androidviewanimation
+     * Args: View
+     * Returns: none
+     */
 
+    public void applyShakeAnimation(View view){
+        YoYo.with(Techniques.Shake)
+                .duration(700)
+                .repeat(1)
+                .playOn(view);
+    }
     /**
      * Apply cross fade between two views in the same activity
      * Args: View before and View after
@@ -75,6 +104,13 @@ public class AppService extends WeatherService{
             return false;
         }
     }
+
+    /**
+     * Check form password validation, both must be more than length of 5 and both must match
+     * Args: View before and View after
+     * Returns: Boolean
+     */
+
     public Boolean isPasswordValid(String p1,String p2, Activity activity){
         if (p1.length() > 5 && p2.length() > 5){
             if (p1.equals(p2)){
@@ -85,6 +121,20 @@ public class AppService extends WeatherService{
         }
         Toast.makeText(activity, "Password must be longer than " + p1.length() + " digits", Toast.LENGTH_SHORT).show();
         return false;
+    }
+
+    /**
+     * Check if zipcode has a length of 5
+     * Args: String zipcode
+     * Returns: Boolean
+     */
+
+    public Boolean isZipcodeValid(String z, Activity activity){
+        while(z.length() != 5){
+            Toast.makeText(activity, "Zipcode must be at a length of 5", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
     }
 
     /**

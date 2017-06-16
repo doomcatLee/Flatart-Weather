@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.example.guest.weatherandroid.R;
 
 public class IntroActivity extends AppCompatActivity implements View.OnClickListener{
@@ -45,17 +47,21 @@ public class IntroActivity extends AppCompatActivity implements View.OnClickList
 
     }
 
+
+
     @Override
     public void onClick(View v) {
         if (v == mGetStartedButton){
             Intent intent = new Intent(IntroActivity.this, RegisterActivity.class);
             startActivity(intent);
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+
         }
 
         if (v == mLogin){
             Intent intent = new Intent(IntroActivity.this, LoginActivity.class);
             startActivity(intent);
+
         }
     }
 
