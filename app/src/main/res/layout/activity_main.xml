@@ -16,7 +16,7 @@
     android:layout_marginRight="66dp"
     android:layout_marginStart="66dp"
     android:ems="10"
-    android:hint="Location"
+    android:hint="Zipcode"
     android:inputType="textPersonName"
     android:textColorHint="@color/colorPrimaryDark"
     android:textSize="20sp"

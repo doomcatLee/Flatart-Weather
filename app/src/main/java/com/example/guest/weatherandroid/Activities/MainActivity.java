@@ -8,8 +8,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.guest.weatherandroid.R;
+import com.example.guest.weatherandroid.Services.AppService;
 import com.example.guest.weatherandroid.Services.FirebaseService;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
@@ -30,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     FirebaseService fbService = new FirebaseService();
     ValueEventListener mSearchedLocationReferenceListener;
     DatabaseReference mSearchedLocationReference;
+    AppService appService = new AppService();
 
 
     @Override
@@ -57,13 +60,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if( v == mGetWeatherButton ){
-            String location = mLocationEditText.getText().toString();
-            Intent intent = new Intent (MainActivity.this, ResultsActivity.class);
-            intent.putExtra("location", location);
-            System.out.println("MAINACTIVITY LOCATION: location " + location);
-            fbService.saveLocationToFirebase(location);
-            startActivity(intent);
-            overridePendingTransition(R.animator.flip_start, R.animator.flip_end);
+            if(appService.isZipcodeValid(mLocationEditText.getText().toString(), this)){
+                String location = mLocationEditText.getText().toString();
+                Intent intent = new Intent (MainActivity.this, ResultsActivity.class);
+                intent.putExtra("location", location);
+                System.out.println("MAINACTIVITY LOCATION: location " + location);
+                fbService.saveLocationToFirebase(location);
+                startActivity(intent);
+                overridePendingTransition(R.animator.flip_start, R.animator.flip_end);
+            }else{
+
+            }
+
 
         }
 

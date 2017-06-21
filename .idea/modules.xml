@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/flatart-weather.iml" filepath="$PROJECT_DIR$/flatart-weather.iml" />
       <module fileurl="file://$PROJECT_DIR$/flatart-weather.iml" filepath="$PROJECT_DIR$/flatart-weather.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/flatart-weather.iml" filepath="$PROJECT_DIR$/.idea/modules/flatart-weather.iml" />
     </modules>

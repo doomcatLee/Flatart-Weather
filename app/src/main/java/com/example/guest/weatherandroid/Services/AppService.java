@@ -37,6 +37,7 @@ import java.text.DecimalFormat;
  * 6. formatTemp()
  * 7. setImageDynamic()
  * 8. setFonts()
+ * 9. isFormEmpty()
  */
 
 public class AppService extends WeatherService{
@@ -182,6 +183,14 @@ public class AppService extends WeatherService{
     public void setFonts(TextView[] views, Typeface font){
         for (TextView i: views){
             i.setTypeface(font);
+        }
+    }
+
+    public Boolean isFormEmpty(EditText et){
+        if (et.getText().toString().equals("")){
+            return false;
+        }else{
+            return true;
         }
     }
 }
